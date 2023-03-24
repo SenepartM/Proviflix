@@ -22,6 +22,9 @@
   <link rel="stylesheet" href="./responsive.css">
   <link rel="shortcut icon" href="img/Proviflix.ico">
   <link href='https://unpkg.com/css.gg@2.0.0/icons/css/log-in.css' rel='stylesheet'>
+  <link href='https://unpkg.com/css.gg@2.0.0/icons/css/log-out.css' rel='stylesheet'>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glyphter/glyphter.min.css">
+  <link href='https://unpkg.com/css.gg@2.0.0/icons/css/bell.css' rel='stylesheet'>
   
   <title>Hello, world!</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -36,49 +39,74 @@ if(isset($_POST['logout'])) {
 ?>
   <div style="position: relative;">
     <!-- header -->
-    <nav class="navbar navbar-expand-lg netflix-navbar netflix-padding-left netflix-padding-right">
-      <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg netflix-navbar netflix-padding-left netflix-padding-right" style="font-size: 1.2rem;">
+    <div class="container-fluid">
         <div class="netflix-row">
-          <div class="left d-flex align-items-center">
-            <a class="navbar-brand" href="#">
-              <a href=""> <img src="img/logo-Proviflix.png" alt="Responsive image LOGO" style="width:100px;"></a>
-            </a>
-            <div class="netflix-nav">
-              <section>
-                <button>Home</button>
-                <button>TV Shows</button>
-                <button>Movies</button>
-                <button>News & Popular</button>
-                <button>My List</button>
-              </section>
-            </div>
-            <div class="netflix-dropdown-box dropdown">
-              <button class="netflix-dropdown dropdown-toggle" type="button" id="dropdownMenuButton1"
-                data-bs-toggle="dropdown" aria-expanded="false">
-                Browse
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><a class="dropdown-item" href="#">Home</a></li>
-                <li><a class="dropdown-item" href="#">TV Shows</a></li>
-                <li><a class="dropdown-item" href="#">Movies</a></li>
-                <li><a class="dropdown-item" href="#">News & Popular</a></li>
-                <li><a class="dropdown-item" href="#">My List</a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="right d-flex align-items-center">
-            <i class="bi bi-search"></i>
-            <i class="bi bi-bell-fill"></i>
-            <form method="post">
-  <input type="submit" value=""placeholder="<i class='gg-log-in'></i>" name="logout" id="logout-button"/>    
-</form>
-            <section class="netflix-profile">
+            <div class="left d-flex align-items-center">
+                <a class="navbar-brand" href="#">
+                    <a href=""><img src="img/logo-Proviflix.png" alt="Responsive image LOGO" style="width:150px;"></a>
+                </a>
+                <div class="netflix-nav" style="font-size: 1.2rem;">
+                    <section>
+                    <button style="height: 50px; width: 150px; margin-right: 2px; font-weight:bold; font-size:1.1rem;">Home</button>
+<button style="height: 50px; width: 150px; margin-right: 2px; font-weight:bold; font-size:1.1rem;">TV Shows</button>
+<button style="height: 50px; width: 150px; margin-right: 2px; font-weight:bold; font-size:1.1rem;">Movies</button>
+<button style="height: 50px; width: 200px; margin-right: 2px; font-weight:bold; font-size:1.1rem;">News & Popular</button>
+<button style="height: 50px; width: 150px; font-weight:bold; font-size:1.1rem;">My List</button>
 
-            </section>
-          </div>
+
+                    </section>
+                </div>
+                <div class="netflix-dropdown-box dropdown" style="font-size: 1.2rem;">
+                    <button class="netflix-dropdown dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"> Browse </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#">Home</a></li>
+                        <li><a class="dropdown-item" href="#">TV Shows</a></li>
+                        <li><a class="dropdown-item" href="#">Movies</a></li>
+                        <li><a class="dropdown-item" href="#">News & Popular</a></li>
+                        <li><a class="dropdown-item" href="#">My List</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="right d-flex align-items-center" style="gap:0.5rem">
+                <a href="./notification.php" style="font-size: 1.5rem;"><i class="bi bi-bell-fill"></i></a>
+                <div class="profile-menu">
+                  <a class="bi bi-person-fill" id="profile-button" style="font-size: 1.5rem;"><i class="bi bi-person-fill"></i></a>
+                  <div class="profile-menu-content">
+                    <div class="profile-menu-header">
+                      <img class="profile-picture" src="path/to/default-profile-picture.png">
+                      <button class="change-picture-button">Change Picture</button>
+                    </div>
+                    <ul class="profile-menu-options">
+                      <li><a href="#">Edit Profile</a></li>
+                      <li><a href="#">Account Settings</a></li>
+                      <li><a href="./deconnexion.php">Sign Out</a></li>
+                      </ul>
+              </div>
+            </div>
         </div>
-      </div>
-    </nav>
+    </div>
+</div>
+</nav>
+<script>
+    const profileMenu = document.querySelector('.profile-menu');
+    const profileMenuContent = document.querySelector('.profile-menu-content');
+    const changePictureButton = document.querySelector('.change-picture-button');
+    const profileButton = document.querySelector('#profile-button');
+    
+    // Toggle profile menu
+    profileButton.addEventListener('click', () => {
+        profileMenuContent.classList.toggle('show');
+    });
+    
+    // Change profile picture
+    changePictureButton.addEventListener('click', () => {
+        // Implement code to change profile picture here
+    });
+</script>
+
+
+
     <!-- /header -->
 
 
@@ -87,10 +115,31 @@ if(isset($_POST['logout'])) {
       <section class="netflix-home-video">
         <div class="top"></div>
         <div class="bottom"></div>
-        <video src="./video/video.mp4" autoplay muted loop></video>
-        <div class="content">
+        <video src="./video/video1.mp4" autoplay loop></video>
+<script>
+  // Récupération de la vidéo
+  const video = document.querySelector("video[src='./video/video1.mp4']");
+
+  // Configuration de l'observer pour observer la vidéo
+  const observer = new IntersectionObserver((entries) => {
+    // Si la vidéo est visible, on joue la vidéo avec le son
+    if (entries[0].isIntersecting) {
+      video.play();
+      video.muted = false;
+    } else {
+      // Si la vidéo n'est pas visible, on met en pause la vidéo et on désactive le son
+      video.pause();
+      video.muted = true;
+    }
+  });
+
+  // On observe la vidéo
+  observer.observe(video);
+</script>
+
+        <div class="content" style="padding-top:100px">
           <section class="left">
-            <img src="./images/image2.webp" alt="">
+            <img src="./images/WednesdayLogo1.png" alt="" width="600px">
 
             <div class="d-flex mt-2">
               <button class="btn btn-light m-2"> <i class="bi bi-play-fill" style="color: black; padding: 0%;"></i> Play

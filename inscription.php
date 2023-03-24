@@ -1,18 +1,27 @@
-<!DOCTYPE html>
-    <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <meta name="author" content="NoS1gnal"/>
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-            <link href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" rel="stylesheet" />
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-            <link rel="stylesheet" href="./style1.css">
-            <title>Inscription</title>
-        </head>
-        <body>
-        <div class="login-form">
-            <?php 
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>Proviflix</title>
+    <link rel="stylesheet" href="./style1.css">
+    <link rel="shortcut icon" href="img/Proviflix.ico">
+  </head>
+  <body>
+  <div class="login-top">
+        <img src="img/logo-Proviflix.png" alt="">
+    </div>
+
+    <div class="container">
+      <div class="row justify-content-center">
+        
+         
+              <?php 
                 if(isset($_GET['reg_err']))
                 {
                     $err = htmlspecialchars($_GET['reg_err']);
@@ -57,129 +66,52 @@
                                 <strong>Erreur</strong> pseudo trop long
                             </div>
                         <?php 
+                        break;
+
                         case 'already':
                         ?>
                             <div class="alert alert-danger">
-                                <strong>Erreur</strong> compte deja existant
+                                <strong>Erreur</strong> compte déjà existant
                             </div>
                         <?php 
+                        break;
 
                     }
                 }
-                ?>
-            
-            <form action="inscription_traitement.php" method="post">
-                <h2 class="text-center">Inscription</h2>       
-                <div class="form-group">
-                    <input type="text" name="pseudo" class="form-control" placeholder="Pseudo" required="required" autocomplete="off">
-                </div>
-                <div class="form-group">
-                    <input type="email" name="email" class="form-control" placeholder="Email" required="required" autocomplete="off">
-                </div>
-                <div class="form-group">
-                    <input type="password" name="password" class="form-control" placeholder="Mot de passe" required="required" autocomplete="off">
-                </div>
-                <div class="form-group">
-                    <input type="password" name="password_retype" class="form-control" placeholder="Re-tapez le mot de passe" required="required" autocomplete="off">
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-block">Inscription</button>
-                    
-                </div>   
-                
-            </form>
-            <a style="margin-left:700px;" href="loginPage.html" class="suscribe">Connexion</a>
+              ?>
+              <div class="d-flex justify-content-center align-items-center" style="width: 100vw;">
+        <section class="login-box">
+            <h2 class="text-white">S'inscrire</h2>
+              <form action="inscription_traitement.php" method="post"class="mt-4">
+              <div class="mb-3 bg-white rounded px-2" >      
+              <label for="exampleInputEmail1" class="form-label small-text">Pseudo</label>
+            <input type="text" name="pseudo" class="form-control border-0 p-0" id="exampleInputEmail1" required="required" autocomplete="off">
+            </div>
+            <div class="mb-3 bg-white rounded px-2">
+            <label for="exampleInputEmail1" class="form-label small-text">Email</label>
+            <input type="email" name="email" class="form-control border-0 p-0" id="exampleInputEmail1" required="required" autocomplete="off"aria-describedby="emailHelp">
+            </div>
+            <div class="mb-3 bg-white rounded px-2">
+            <label for="exampleInputPassword1" class="form-label small-text">Mot de passe</label>
+                    <input type="password" name="password" class="form-control border-0 p-0"  id="exampleInputPassword1" required="required" autocomplete="off">
+            </div>
+           <div class="mb-3 bg-white rounded px-2">
+            <label for="exampleInputPassword1" class="form-label small-text">Confirmer le mot de passe</label>
+            <input type="password" name="password_retype" class="form-control border-0 p-0"  id="exampleInputPassword1" required="required" autocomplete="off">
+            </div>
+            <div class="form-group text-center">
+            <button type="submit"class="btn btn-danger mt-3" style="width: 100%;background-color: #e50914;">S'inscrire</button>
+            </div>
+          </form>
+          <p class="m-0  text-white"> <span style="color: rgba(212, 212, 212, 0.75);">Déjà inscrit ?</span> <a href="index.php" style="text-decoration: none;color:white" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Connectez vous.</a>
+<p class="m-0 small-text text-white  mt-2"> <span style="color: rgba(212, 212, 212, 0.75);">Cette page est protégée par Google reCAPTCHA pour s'assurer que vous n'êtes pas un robot. <a href="https://www.google.com/recaptcha/about/" style="text-decoration: none;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Lire plus.</a>
         </div>
-        <style>
-        .suscribe {
-    height: 4rem;
-    letter-spacing: .1px;
-    font-size: 1.2rem;
-    text-transform: uppercase;
-    background-color: #e50914;
-    line-height: normal;
-    color: #fff;
-    padding: 0.25rem 0.75rem;
-    border-radius: 0.25rem;
-}
-a {
-  text-decoration: none;
-  color: inherit;
-}
-a:hover {
-  text-decoration: none;
-  color: inherit;
-}
-form {
-  max-width: 400px;
-  margin: 50px auto;
-  padding: 20px;
-  background-color: #111;
-  border-radius: 5px;
-}
+      </div>
+    </div>
+  </div>
+</div>
 
-h2 {
-  color: #fff;
-  text-align: center;
-  margin-bottom: 30px;
-}
-
-.form-group {
-  position: relative;
-  margin-bottom: 20px;
-}
-
-.form-control {
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  font-weight: 300;
-  background-color: #222;
-  border: none;
-  border-radius: 3px;
-  color: #fff;
-  box-shadow: none;
-}
-
-.form-control:focus {
-  outline: none;
-  box-shadow: none;
-  border: none;
-}
-
-.form-control:focus + label {
-  transform: translateY(-25px);
-  color: #e50914;
-  font-size: 12px;
-}
-
-label {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  color: #aaa;
-  font-size: 16px;
-  font-weight: 300;
-  transition: all 0.2s ease;
-}
-
-.btn-primary {
-  background-color: #e50914;
-  border: none;
-  border-radius: 3px;
-  padding: 10px;
-  font-size: 16px;
-  font-weight: 300;
-  color: #fff;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.btn-primary:hover {
-  background-color: #b2070d;
-}
-
-</style>
-
-        </body>
-</html>
+<!-- Bootstrap JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-Ql0Gzxh+4b8w4sbx4/OJgsa27hDMWh/M6UHvOF9Lr6ALIY2y2Nw8sB1dEtIzgkD6" crossorigin="anonymous"></script>
+            </body>
+            </html>
