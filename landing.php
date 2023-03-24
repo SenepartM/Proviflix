@@ -64,7 +64,7 @@ if(isset($_POST['logout'])) {
                         <li><a class="dropdown-item" href="#">TV Shows</a></li>
                         <li><a class="dropdown-item" href="#">Movies</a></li>
                         <li><a class="dropdown-item" href="#">News & Popular</a></li>
-                        <li><a class="dropdown-item" href="#">My List</a></li>
+                        <li><a class="dropdown-item" href="#">VIVE FAUSTIN</a></li>
                     </ul>
                 </div>
             </div>
