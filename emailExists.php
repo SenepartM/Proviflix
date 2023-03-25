@@ -9,8 +9,8 @@ if (isset($_POST['email'])) {
       header("Location: index.php");
       exit();
     } else {
-      // Sinon, rediriger l'utilisateur vers la page d'inscription
-      header("Location: inscription.php");
+       // Sinon, rediriger l'utilisateur vers la page d'inscription avec l'email pré-rempli
+       header("Location: inscription.php?email=" . urlencode($email));
       exit();
     }
   }

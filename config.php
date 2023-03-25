@@ -1,7 +1,7 @@
 <?php
     try
     {
-  $ipserver="192.168.64.206";
+  $ipserver="localhost";  // Mettre l'ip
   $nomBase="Proviflix";
   $loginPrivilege ="root";
   $passPrivilege="root";

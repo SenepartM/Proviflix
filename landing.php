@@ -64,46 +64,48 @@ if(isset($_POST['logout'])) {
                         <li><a class="dropdown-item" href="#">TV Shows</a></li>
                         <li><a class="dropdown-item" href="#">Movies</a></li>
                         <li><a class="dropdown-item" href="#">News & Popular</a></li>
-                        <li><a class="dropdown-item" href="#">VIVE FAUSTIN</a></li>
+                        <li><a class="dropdown-item" href="#">My List</a></li>
                     </ul>
                 </div>
             </div>
             <div class="right d-flex align-items-center" style="gap:0.5rem">
                 <a href="./notification.php" style="font-size: 1.5rem;"><i class="bi bi-bell-fill"></i></a>
-                <div class="profile-menu">
-                  <a class="bi bi-person-fill" id="profile-button" style="font-size: 1.5rem;"><i class="bi bi-person-fill"></i></a>
-                  <div class="profile-menu-content">
-                    <div class="profile-menu-header">
-                      <img class="profile-picture" src="path/to/default-profile-picture.png">
-                      <button class="change-picture-button">Change Picture</button>
-                    </div>
-                    <ul class="profile-menu-options">
-                      <li><a href="#">Edit Profile</a></li>
-                      <li><a href="#">Account Settings</a></li>
-                      <li><a href="./deconnexion.php">Sign Out</a></li>
-                      </ul>
-              </div>
+                <a class="bi bi-door-closedd-fill" href="./deconnexion.php" style="font-size: 1.5rem;"><i class="bi bi-door-closed-fill"></i></a>
+                <button class="profile-button">
+             <?php   $query = $BasePDO->prepare('SELECT img_path FROM User WHERE pseudo = ?');
+    $query->execute(array($_SESSION['user']));
+    $data = $query->fetch();
+    $img_path = $data['img_path'];?>
+                <img src="<?php echo $img_path; ?>" alt="Image de profil actuelle" class="profile-photo">
+</button>
+<style>
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .profile-button {
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .profile-photo {
+    position:relative;
+    width: 52px;
+    height: 52px;
+    object-fit: cover;   
+    border-radius:12px;
+    margin-right: 1px;
+  }
+</style>
             </div>
         </div>
     </div>
-</div>
 </nav>
-<script>
-    const profileMenu = document.querySelector('.profile-menu');
-    const profileMenuContent = document.querySelector('.profile-menu-content');
-    const changePictureButton = document.querySelector('.change-picture-button');
-    const profileButton = document.querySelector('#profile-button');
-    
-    // Toggle profile menu
-    profileButton.addEventListener('click', () => {
-        profileMenuContent.classList.toggle('show');
-    });
-    
-    // Change profile picture
-    changePictureButton.addEventListener('click', () => {
-        // Implement code to change profile picture here
-    });
-</script>
 
 
 
@@ -115,26 +117,26 @@ if(isset($_POST['logout'])) {
       <section class="netflix-home-video">
         <div class="top"></div>
         <div class="bottom"></div>
-        <video src="./video/video1.mp4" autoplay loop></video>
+        <video src="./video/video2.mp4" autoplay loop></video>
 <script>
   // Récupération de la vidéo
-  const video = document.querySelector("video[src='./video/video1.mp4']");
+  const video = document.querySelector("video[src='./video/video2.mp4']");
 
-  // Configuration de l'observer pour observer la vidéo
-  const observer = new IntersectionObserver((entries) => {
-    // Si la vidéo est visible, on joue la vidéo avec le son
-    if (entries[0].isIntersecting) {
-      video.play();
-      video.muted = false;
-    } else {
-      // Si la vidéo n'est pas visible, on met en pause la vidéo et on désactive le son
-      video.pause();
-      video.muted = true;
-    }
-  });
+ // Configuration de l'observer pour observer la vidéo
+const observer = new IntersectionObserver((entries) => {
+  // Si la vidéo est visible, on joue la vidéo avec le son
+  if (entries[0].isIntersecting) {
+    video.play();
+    video.muted = false;
+    video.volume = 1;
+  } else {
+    // Si la vidéo n'est pas visible, on met en pause la vidéo et on désactive le son
+    video.pause();
+    video.muted = true;
+  }
+}, { threshold: 0.3 }); // Utilisation d'un seuil de 0,8 (80%)
+observer.observe(video);
 
-  // On observe la vidéo
-  observer.observe(video);
 </script>
 
         <div class="content" style="padding-top:100px">
@@ -174,10 +176,9 @@ if(isset($_POST['logout'])) {
           <div class="carousel-inner" style="position: relative; overflow: visible;">
             <div class="carousel-item active">
               <section class="d-flex">
-                
-                
-                <div class="card">
-                  <img src="./images/trending/img3.webp" class="card-img-top" alt="...">
+             
+                <!--<div class="card">
+                  <img src="./images/trending/img3.jpg" class="card-img-top" alt="GameOfThrones Image">
                   <div class="card-body">
                     <section class="d-flex justify-content-between">
                       <div>
@@ -189,13 +190,79 @@ if(isset($_POST['logout'])) {
                       </div>
                     </section>
                     <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
+                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">50% match</p>
+                      <span class="m-2 netflix-card-text text-white">8 saisons</span> <span
                         class="border netflix-card-text p-1 text-white">HD</span>
 
                     </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
+                    <span class="netflix-card-text text-white">LALALA</span>
                   </div>
+                  <div class="card-body">
+                    <section class="d-flex justify-content-between">
+                      <div>
+                        <i class="bi bi-play-circle-fill card-icon"></i>
+                        <i class="bi bi-plus-circle card-icon"></i>
+                      </div>
+                      <div>
+                        <i class="bi bi-arrow-down-circle card-icon"></i>
+                      </div>
+                    </section>
+                    <section class="d-flex align-items-center justify-content-between">
+                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">40% match</p>
+                      <span class="m-2 netflix-card-text text-white">8 saisons</span> <span
+                        class="border netflix-card-text p-1 text-white">HD</span>
+
+                    </section>
+                    <span class="netflix-card-text text-white">lalala</span>
+                  </div>
+                </div>
+                ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                ////////////////////////////////////////////////////////////////EXEMPLE TYPE D UNE CARTE///////////////////////////////////////////////////////
+                ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+              -->               
+                <div class="card">
+                  <img src="./images/trending/img3.jpg" class="card-img-top" alt="GameOfThrones Image">
+                  <div class="card-body">
+                    <section class="d-flex justify-content-between">
+                      <div>
+                        <i class="bi bi-play-circle-fill card-icon"></i>
+                        <i class="bi bi-plus-circle card-icon"></i>
+                      </div>
+                      <div>
+                        <i class="bi bi-arrow-down-circle card-icon"></i>
+                      </div>
+                    </section>
+                    <section class="d-flex align-items-center justify-content-between">
+                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">50% match</p>
+                      <span class="m-2 netflix-card-text text-white">8 saisons</span> <span
+                        class="border netflix-card-text p-1 text-white">HD</span>
+
+                    </section>
+                    <span class="netflix-card-text text-white">LALALA</span>
+                  </div>
+                  <div class="card-body">
+                    <section class="d-flex justify-content-between">
+                      <div>
+                      <a href="lala.php">   <i class="bi bi-play-circle-fill card-icon"></i></a>
+                        <i class="bi bi-plus-circle card-icon"></i>
+                      </div>
+                      <div>
+                     <i class="bi bi-arrow-down-circle card-icon"></i>
+                      </div>
+                    </section>
+                    <section class="d-flex align-items-center justify-content-between">
+                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">40% match</p>
+                      <span class="m-2 netflix-card-text text-white">8 saisons</span> <span
+                        class="border netflix-card-text p-1 text-white">HD</span>
+
+                    </section>
+                    <span class="netflix-card-text text-white">lalala</span>
+                  </div>
+                </div>
+                <div class="card">
+                  <img src="./images/trending/img4.jpg" class="card-img-top" alt="...">
                   <div class="card-body">
                     <section class="d-flex justify-content-between">
                       <div>
@@ -216,7 +283,7 @@ if(isset($_POST['logout'])) {
                   </div>
                 </div>
                 <div class="card">
-                  <img src="./images/trending/img4.jpeg" class="card-img-top" alt="...">
+                  <img src="./images/trending/img1.jpg" class="card-img-top" alt="...">
                   <div class="card-body">
                     <section class="d-flex justify-content-between">
                       <div>
@@ -237,7 +304,7 @@ if(isset($_POST['logout'])) {
                   </div>
                 </div>
                 <div class="card">
-                  <img src="./images/trending/img1.webp" class="card-img-top" alt="...">
+                  <img src="./images/trending/img2.jpg" class="card-img-top" alt="...">
                   <div class="card-body">
                     <section class="d-flex justify-content-between">
                       <div>
@@ -258,28 +325,7 @@ if(isset($_POST['logout'])) {
                   </div>
                 </div>
                 <div class="card">
-                  <img src="./images/trending/img2.jpeg" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
-
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src="./images/trending/img6.jpeg" class="card-img-top" alt="...">
+                  <img src="./images/trending/img6.jpg" class="card-img-top" alt="...">
                   <div class="card-body">
                     <section class="d-flex justify-content-between">
                       <div>
@@ -300,7 +346,7 @@ if(isset($_POST['logout'])) {
                   </div>
                 </div>
                 <div class="card">
-                  <img src="./images/trending/img6.jpeg" class="card-img-top" alt="...">
+                  <img src="./images/trending/img6.jpg" class="card-img-top" alt="...">
                   <div class="card-body">
                     <section class="d-flex justify-content-between">
                       <div>
@@ -325,7 +371,7 @@ if(isset($_POST['logout'])) {
             <div class="carousel-item">
               <section class="d-flex">
                 <div class="card">
-                  <img src="./images/trending/img1.webp" class="card-img-top" alt="...">
+                  <img src="./images/trending/img1.jpg" class="card-img-top" alt="...">
                   <div class="card-body">
                     <section class="d-flex justify-content-between">
                       <div>
@@ -346,7 +392,7 @@ if(isset($_POST['logout'])) {
                   </div>
                 </div>
                 <div class="card">
-                  <img src="./images/trending/img2.jpeg" class="card-img-top" alt="...">
+                  <img src="./images/trending/img2.jpg" class="card-img-top" alt="...">
                   <div class="card-body">
                     <section class="d-flex justify-content-between">
                       <div>
@@ -367,7 +413,7 @@ if(isset($_POST['logout'])) {
                   </div>
                 </div>
                 <div class="card">
-                  <img src="./images/trending/img3.webp" class="card-img-top" alt="...">
+                  <img src="./images/trending/img3.jpg" class="card-img-top" alt="...">
                   <div class="card-body">
                     <section class="d-flex justify-content-between">
                       <div>
@@ -388,7 +434,7 @@ if(isset($_POST['logout'])) {
                   </div>
                 </div>
                 <div class="card">
-                  <img src="./images/trending/img4.jpeg" class="card-img-top" alt="...">
+                  <img src="./images/trending/img4.jpg" class="card-img-top" alt="...">
                   <div class="card-body">
                     <section class="d-flex justify-content-between">
                       <div>
@@ -409,7 +455,7 @@ if(isset($_POST['logout'])) {
                   </div>
                 </div>
                 <div class="card">
-                  <img src="./images/trending/img1.webp" class="card-img-top" alt="...">
+                  <img src="./images/trending/img1.jpg" class="card-img-top" alt="...">
                   <div class="card-body">
                     <section class="d-flex justify-content-between">
                       <div>
@@ -430,7 +476,7 @@ if(isset($_POST['logout'])) {
                   </div>
                 </div>
                 <div class="card">
-                  <img src="./images/trending/img2.jpeg" class="card-img-top" alt="...">
+                  <img src="./images/trending/img2.jpg" class="card-img-top" alt="...">
                   <div class="card-body">
                     <section class="d-flex justify-content-between">
                       <div>
@@ -455,7 +501,7 @@ if(isset($_POST['logout'])) {
             <div class="carousel-item">
               <section class="d-flex">
                 <div class="card">
-                  <img src="./images/trending/img7.webp" class="card-img-top" alt="...">
+                  <img src="./images/trending/img7.jpg" class="card-img-top" alt="...">
                   <div class="card-body">
                     <section class="d-flex justify-content-between">
                       <div>
@@ -476,7 +522,7 @@ if(isset($_POST['logout'])) {
                   </div>
                 </div>
                 <div class="card">
-                  <img src="./images/trending/img2.jpeg" class="card-img-top" alt="...">
+                  <img src="./images/trending/img2.jpg" class="card-img-top" alt="...">
                   <div class="card-body">
                     <section class="d-flex justify-content-between">
                       <div>
@@ -497,7 +543,7 @@ if(isset($_POST['logout'])) {
                   </div>
                 </div>
                 <div class="card">
-                  <img src="./images/trending/img3.webp" class="card-img-top" alt="...">
+                  <img src="./images/trending/img3.jpg" class="card-img-top" alt="...">
                   <div class="card-body">
                     <section class="d-flex justify-content-between">
                       <div>
@@ -518,7 +564,7 @@ if(isset($_POST['logout'])) {
                   </div>
                 </div>
                 <div class="card">
-                  <img src="./images/trending/img4.jpeg" class="card-img-top" alt="...">
+                  <img src="./images/trending/img4.jpg" class="card-img-top" alt="...">
                   <div class="card-body">
                     <section class="d-flex justify-content-between">
                       <div>
@@ -539,7 +585,7 @@ if(isset($_POST['logout'])) {
                   </div>
                 </div>
                 <div class="card">
-                  <img src="./images/trending/img1.webp" class="card-img-top" alt="...">
+                  <img src="./images/trending/img1.jpg" class="card-img-top" alt="...">
                   <div class="card-body">
                     <section class="d-flex justify-content-between">
                       <div>
@@ -560,7 +606,7 @@ if(isset($_POST['logout'])) {
                   </div>
                 </div>
                 <div class="card">
-                  <img src="./images/trending/img2.jpeg" class="card-img-top" alt="...">
+                  <img src="./images/trending/img2.jpg" class="card-img-top" alt="...">
                   <div class="card-body">
                     <section class="d-flex justify-content-between">
                       <div>
@@ -612,8 +658,8 @@ if(isset($_POST['logout'])) {
           <div class="carousel-inner" style="position: relative; overflow: visible;">
             <div class="carousel-item active">
               <section class="d-flex">
-                <div class="card">
-                  <img src="./images/trending/img6.jpeg" class="card-img-top" alt="...">
+              <div class="card">
+                  <img src="./images/trending/img6.jpg" class="card-img-top" alt="...">
                   <div class="card-body">
                     <section class="d-flex justify-content-between">
                       <div>
@@ -634,7 +680,7 @@ if(isset($_POST['logout'])) {
                   </div>
                 </div>
                 <div class="card">
-                  <img src="./images/trending/img2.jpeg" class="card-img-top" alt="...">
+                  <img src="./images/trending/img2.jpg" class="card-img-top" alt="...">
                   <div class="card-body">
                     <section class="d-flex justify-content-between">
                       <div>
@@ -655,7 +701,7 @@ if(isset($_POST['logout'])) {
                   </div>
                 </div>
                 <div class="card">
-                  <img src="./images/trending/img3.webp" class="card-img-top" alt="...">
+                  <img src="./images/trending/img3.jpg" class="card-img-top" alt="...">
                   <div class="card-body">
                     <section class="d-flex justify-content-between">
                       <div>
@@ -694,7 +740,7 @@ if(isset($_POST['logout'])) {
                   </div>
                 </div>
                 <div class="card">
-                  <img src="./images/trending/img4.jpeg" class="card-img-top" alt="...">
+                  <img src="./images/trending/img4.jpg" class="card-img-top" alt="...">
                   <div class="card-body">
                     <section class="d-flex justify-content-between">
                       <div>
@@ -715,7 +761,7 @@ if(isset($_POST['logout'])) {
                   </div>
                 </div>
                 <div class="card">
-                  <img src="./images/trending/img1.webp" class="card-img-top" alt="...">
+                  <img src="./images/trending/img1.jpg" class="card-img-top" alt="...">
                   <div class="card-body">
                     <section class="d-flex justify-content-between">
                       <div>
@@ -736,137 +782,7 @@ if(isset($_POST['logout'])) {
                   </div>
                 </div>
                 <div class="card">
-                  <img src="./images/trending/img2.jpeg" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
-
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-              </section>
-            </div>
-            <div class="carousel-item">
-              <section class="d-flex ">
-                <div class="card">
-                  <img src="./images/trending/img1.webp" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
-
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src="./images/trending/img2.jpeg" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
-
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src="./images/trending/img3.webp" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
-
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src="./images/trending/img4.jpeg" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
-
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src="./images/trending/img1.webp" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
-
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src="./images/trending/img2.jpeg" class="card-img-top" alt="...">
+                  <img src="./images/trending/img2.jpg" class="card-img-top" alt="...">
                   <div class="card-body">
                     <section class="d-flex justify-content-between">
                       <div>
@@ -891,7 +807,7 @@ if(isset($_POST['logout'])) {
             <div class="carousel-item">
               <section class="d-flex ">
                 <div class="card">
-                  <img src="./images/trending/img7.webp" class="card-img-top" alt="...">
+                  <img src="./images/trending/img1.jpg" class="card-img-top" alt="...">
                   <div class="card-body">
                     <section class="d-flex justify-content-between">
                       <div>
@@ -912,7 +828,7 @@ if(isset($_POST['logout'])) {
                   </div>
                 </div>
                 <div class="card">
-                  <img src="./images/trending/img2.jpeg" class="card-img-top" alt="...">
+                  <img src="./images/trending/img2.jpg" class="card-img-top" alt="...">
                   <div class="card-body">
                     <section class="d-flex justify-content-between">
                       <div>
@@ -933,7 +849,7 @@ if(isset($_POST['logout'])) {
                   </div>
                 </div>
                 <div class="card">
-                  <img src="./images/trending/img3.webp" class="card-img-top" alt="...">
+                  <img src="./images/trending/img3.jpg" class="card-img-top" alt="...">
                   <div class="card-body">
                     <section class="d-flex justify-content-between">
                       <div>
@@ -954,7 +870,7 @@ if(isset($_POST['logout'])) {
                   </div>
                 </div>
                 <div class="card">
-                  <img src="./images/trending/img4.jpeg" class="card-img-top" alt="...">
+                  <img src="./images/trending/img4.jpg" class="card-img-top" alt="...">
                   <div class="card-body">
                     <section class="d-flex justify-content-between">
                       <div>
@@ -975,7 +891,7 @@ if(isset($_POST['logout'])) {
                   </div>
                 </div>
                 <div class="card">
-                  <img src="./images/trending/img1.webp" class="card-img-top" alt="...">
+                  <img src="./images/trending/img1.jpg" class="card-img-top" alt="...">
                   <div class="card-body">
                     <section class="d-flex justify-content-between">
                       <div>
@@ -996,7 +912,137 @@ if(isset($_POST['logout'])) {
                   </div>
                 </div>
                 <div class="card">
-                  <img src="./images/trending/img2.jpeg" class="card-img-top" alt="...">
+                  <img src="./images/trending/img2.jpg" class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <section class="d-flex justify-content-between">
+                      <div>
+                        <i class="bi bi-play-circle-fill card-icon"></i>
+                        <i class="bi bi-plus-circle card-icon"></i>
+                      </div>
+                      <div>
+                        <i class="bi bi-arrow-down-circle card-icon"></i>
+                      </div>
+                    </section>
+                    <section class="d-flex align-items-center justify-content-between">
+                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
+                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
+                        class="border netflix-card-text p-1 text-white">HD</span>
+
+                    </section>
+                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
+                  </div>
+                </div>
+              </section>
+            </div>
+            <div class="carousel-item">
+              <section class="d-flex ">
+                <div class="card">
+                  <img src="./images/trending/img7.jpg" class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <section class="d-flex justify-content-between">
+                      <div>
+                        <i class="bi bi-play-circle-fill card-icon"></i>
+                        <i class="bi bi-plus-circle card-icon"></i>
+                      </div>
+                      <div>
+                        <i class="bi bi-arrow-down-circle card-icon"></i>
+                      </div>
+                    </section>
+                    <section class="d-flex align-items-center justify-content-between">
+                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
+                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
+                        class="border netflix-card-text p-1 text-white">HD</span>
+
+                    </section>
+                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
+                  </div>
+                </div>
+                <div class="card">
+                  <img src="./images/trending/img2.jpg" class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <section class="d-flex justify-content-between">
+                      <div>
+                        <i class="bi bi-play-circle-fill card-icon"></i>
+                        <i class="bi bi-plus-circle card-icon"></i>
+                      </div>
+                      <div>
+                        <i class="bi bi-arrow-down-circle card-icon"></i>
+                      </div>
+                    </section>
+                    <section class="d-flex align-items-center justify-content-between">
+                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
+                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
+                        class="border netflix-card-text p-1 text-white">HD</span>
+
+                    </section>
+                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
+                  </div>
+                </div>
+                <div class="card">
+                  <img src="./images/trending/img3.jpg" class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <section class="d-flex justify-content-between">
+                      <div>
+                        <i class="bi bi-play-circle-fill card-icon"></i>
+                        <i class="bi bi-plus-circle card-icon"></i>
+                      </div>
+                      <div>
+                        <i class="bi bi-arrow-down-circle card-icon"></i>
+                      </div>
+                    </section>
+                    <section class="d-flex align-items-center justify-content-between">
+                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
+                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
+                        class="border netflix-card-text p-1 text-white">HD</span>
+
+                    </section>
+                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
+                  </div>
+                </div>
+                <div class="card">
+                  <img src="./images/trending/img4.jpg" class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <section class="d-flex justify-content-between">
+                      <div>
+                        <i class="bi bi-play-circle-fill card-icon"></i>
+                        <i class="bi bi-plus-circle card-icon"></i>
+                      </div>
+                      <div>
+                        <i class="bi bi-arrow-down-circle card-icon"></i>
+                      </div>
+                    </section>
+                    <section class="d-flex align-items-center justify-content-between">
+                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
+                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
+                        class="border netflix-card-text p-1 text-white">HD</span>
+
+                    </section>
+                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
+                  </div>
+                </div>
+                <div class="card">
+                  <img src="./images/trending/img1.jpg" class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <section class="d-flex justify-content-between">
+                      <div>
+                        <i class="bi bi-play-circle-fill card-icon"></i>
+                        <i class="bi bi-plus-circle card-icon"></i>
+                      </div>
+                      <div>
+                        <i class="bi bi-arrow-down-circle card-icon"></i>
+                      </div>
+                    </section>
+                    <section class="d-flex align-items-center justify-content-between">
+                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
+                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
+                        class="border netflix-card-text p-1 text-white">HD</span>
+
+                    </section>
+                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
+                  </div>
+                </div>
+                <div class="card">
+                  <img src="./images/trending/img2.jpg" class="card-img-top" alt="...">
                   <div class="card-body">
                     <section class="d-flex justify-content-between">
                       <div>
@@ -1049,7 +1095,7 @@ if(isset($_POST['logout'])) {
             <div class="carousel-item active">
               <section class="d-flex ">
                 <div class="card">
-                  <img src="./images/trending/img6.jpeg" class="card-img-top" alt="...">
+                  <img src="./images/trending/img6.jpg" class="card-img-top" alt="...">
                   <div class="card-body">
                     <section class="d-flex justify-content-between">
                       <div>
@@ -1070,7 +1116,7 @@ if(isset($_POST['logout'])) {
                   </div>
                 </div>
                 <div class="card">
-                  <img src="./images/trending/img2.jpeg" class="card-img-top" alt="...">
+                  <img src="./images/trending/img2.jpg" class="card-img-top" alt="...">
                   <div class="card-body">
                     <section class="d-flex justify-content-between">
                       <div>
@@ -1091,7 +1137,7 @@ if(isset($_POST['logout'])) {
                   </div>
                 </div>
                 <div class="card">
-                  <img src="./images/trending/img3.webp" class="card-img-top" alt="...">
+                  <img src="./images/trending/img3.jpg" class="card-img-top" alt="...">
                   <div class="card-body">
                     <section class="d-flex justify-content-between">
                       <div>
@@ -1130,7 +1176,7 @@ if(isset($_POST['logout'])) {
                   </div>
                 </div>
                 <div class="card">
-                  <img src="./images/trending/img4.jpeg" class="card-img-top" alt="...">
+                  <img src="./images/trending/img4.jpg" class="card-img-top" alt="...">
                   <div class="card-body">
                     <section class="d-flex justify-content-between">
                       <div>
@@ -1151,7 +1197,7 @@ if(isset($_POST['logout'])) {
                   </div>
                 </div>
                 <div class="card">
-                  <img src="./images/trending/img1.webp" class="card-img-top" alt="...">
+                  <img src="./images/trending/img1.jpg" class="card-img-top" alt="...">
                   <div class="card-body">
                     <section class="d-flex justify-content-between">
                       <div>
@@ -1172,7 +1218,7 @@ if(isset($_POST['logout'])) {
                   </div>
                 </div>
                 <div class="card">
-                  <img src="./images/trending/img2.jpeg" class="card-img-top" alt="...">
+                  <img src="./images/trending/img2.jpg" class="card-img-top" alt="...">
                   <div class="card-body">
                     <section class="d-flex justify-content-between">
                       <div>
@@ -1197,7 +1243,7 @@ if(isset($_POST['logout'])) {
             <div class="carousel-item">
               <section class="d-flex">
                 <div class="card">
-                  <img src="./images/trending/img1.webp" class="card-img-top" alt="...">
+                  <img src="./images/trending/img1.jpg" class="card-img-top" alt="...">
                   <div class="card-body">
                     <section class="d-flex justify-content-between">
                       <div>
@@ -1218,7 +1264,7 @@ if(isset($_POST['logout'])) {
                   </div>
                 </div>
                 <div class="card">
-                  <img src="./images/trending/img2.jpeg" class="card-img-top" alt="...">
+                  <img src="./images/trending/img2.jpg" class="card-img-top" alt="...">
                   <div class="card-body">
                     <section class="d-flex justify-content-between">
                       <div>
@@ -1239,7 +1285,7 @@ if(isset($_POST['logout'])) {
                   </div>
                 </div>
                 <div class="card">
-                  <img src="./images/trending/img3.webp" class="card-img-top" alt="...">
+                  <img src="./images/trending/img3.jpg" class="card-img-top" alt="...">
                   <div class="card-body">
                     <section class="d-flex justify-content-between">
                       <div>
@@ -1260,7 +1306,7 @@ if(isset($_POST['logout'])) {
                   </div>
                 </div>
                 <div class="card">
-                  <img src="./images/trending/img4.jpeg" class="card-img-top" alt="...">
+                  <img src="./images/trending/img4.jpg" class="card-img-top" alt="...">
                   <div class="card-body">
                     <section class="d-flex justify-content-between">
                       <div>
@@ -1281,7 +1327,7 @@ if(isset($_POST['logout'])) {
                   </div>
                 </div>
                 <div class="card">
-                  <img src="./images/trending/img1.webp" class="card-img-top" alt="...">
+                  <img src="./images/trending/img1.jpg" class="card-img-top" alt="...">
                   <div class="card-body">
                     <section class="d-flex justify-content-between">
                       <div>
@@ -1302,7 +1348,7 @@ if(isset($_POST['logout'])) {
                   </div>
                 </div>
                 <div class="card">
-                  <img src="./images/trending/img2.jpeg" class="card-img-top" alt="...">
+                  <img src="./images/trending/img2.jpg" class="card-img-top" alt="...">
                   <div class="card-body">
                     <section class="d-flex justify-content-between">
                       <div>
@@ -1327,7 +1373,7 @@ if(isset($_POST['logout'])) {
             <div class="carousel-item">
               <section class="d-flex ">
                 <div class="card">
-                  <img src="./images/trending/img7.webp" class="card-img-top" alt="...">
+                  <img src="./images/trending/img7.jpg" class="card-img-top" alt="...">
                   <div class="card-body">
                     <section class="d-flex justify-content-between">
                       <div>
@@ -1348,7 +1394,7 @@ if(isset($_POST['logout'])) {
                   </div>
                 </div>
                 <div class="card">
-                  <img src="./images/trending/img2.jpeg" class="card-img-top" alt="...">
+                  <img src="./images/trending/img2.jpg" class="card-img-top" alt="...">
                   <div class="card-body">
                     <section class="d-flex justify-content-between">
                       <div>
@@ -1369,7 +1415,7 @@ if(isset($_POST['logout'])) {
                   </div>
                 </div>
                 <div class="card">
-                  <img src="./images/trending/img3.webp" class="card-img-top" alt="...">
+                  <img src="./images/trending/img3.jpg" class="card-img-top" alt="...">
                   <div class="card-body">
                     <section class="d-flex justify-content-between">
                       <div>
@@ -1390,7 +1436,7 @@ if(isset($_POST['logout'])) {
                   </div>
                 </div>
                 <div class="card">
-                  <img src="./images/trending/img4.jpeg" class="card-img-top" alt="...">
+                  <img src="./images/trending/img4.jpg" class="card-img-top" alt="...">
                   <div class="card-body">
                     <section class="d-flex justify-content-between">
                       <div>
@@ -1411,7 +1457,7 @@ if(isset($_POST['logout'])) {
                   </div>
                 </div>
                 <div class="card">
-                  <img src="./images/trending/img1.webp" class="card-img-top" alt="...">
+                  <img src="./images/trending/img1.jpg" class="card-img-top" alt="...">
                   <div class="card-body">
                     <section class="d-flex justify-content-between">
                       <div>
@@ -1432,7 +1478,7 @@ if(isset($_POST['logout'])) {
                   </div>
                 </div>
                 <div class="card">
-                  <img src="./images/trending/img2.jpeg" class="card-img-top" alt="...">
+                  <img src="./images/trending/img2.jpg" class="card-img-top" alt="...">
                   <div class="card-body">
                     <section class="d-flex justify-content-between">
                       <div>
@@ -1502,7 +1548,7 @@ if(isset($_POST['logout'])) {
             <div class="col-md-3">
               <ul>
                 <li>Gift card</li>
-                <li>Subscription</li>
+                <li>vas te faire foutre mathias c est tom bisous</li>
 
               </ul>
             </div>
