@@ -65,4 +65,9 @@ class User {
     // Retourner un nouvel objet User avec les attributs de l'utilisateur nouvellement créé
     return new User($id, $pseudo, $email, $password_hash, $ip, date("Y-m-d H:i:s"), $token);
   }
+<<<<<<< HEAD
 }
+=======
+}
+
+>>>>>>> 87389a212783a4efaddb99d7b5e2b67260128110
