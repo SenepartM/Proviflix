@@ -14,7 +14,7 @@
   </head>
   <body>
   <div class="login-top">
-        <img src="img/logo-Proviflix.png" alt="">
+       <a href="index.html"> <img src="img/logo-Proviflix.png" alt=""></a>
     </div>
 
     <div class="container">
@@ -31,15 +31,20 @@
                         case 'success':
                         ?>
                             <div class="alert alert-success">
-                                <strong>Succès</strong> inscription réussie !
+                               <h3> <center><strong>Succès</strong> inscription réussie !</center></h3>
                             </div>
+                            <script>
+                setTimeout(function() {
+                    window.location.href = "connexion.php";
+                }, 2000); // 2000ms = 2 seconds
+            </script>
                         <?php
                         break;
 
                         case 'password':
                         ?>
                             <div class="alert alert-danger">
-                                <strong>Erreur</strong> mot de passe différent
+                                <h3><center><strong>Erreur</strong> mot de passe différent</center></h3>
                             </div>
                         <?php
                         break;
@@ -47,7 +52,7 @@
                         case 'email':
                         ?>
                             <div class="alert alert-danger">
-                                <strong>Erreur</strong> email non valide
+                            <h3><center>    <strong>Erreur</strong> email non valide</center></h3>
                             </div>
                         <?php
                         break;
@@ -55,7 +60,7 @@
                         case 'email_length':
                         ?>
                             <div class="alert alert-danger">
-                                <strong>Erreur</strong> email trop long
+                            <h3><center>    <strong>Erreur</strong> email trop long</center></h3>
                             </div>
                         <?php 
                         break;
@@ -63,7 +68,7 @@
                         case 'pseudo_length':
                         ?>
                             <div class="alert alert-danger">
-                                <strong>Erreur</strong> pseudo trop long
+                              <h3><center>  <strong>Erreur</strong> pseudo trop long</center></h3>
                             </div>
                         <?php 
                         break;
@@ -71,13 +76,19 @@
                         case 'already':
                         ?>
                             <div class="alert alert-danger">
-                                <strong>Erreur</strong> compte déjà existant
+                            <h3><center>    <strong>Erreur</strong> pseudo ou email déjà utilisé</center></h3>
                             </div>
                         <?php 
                         break;
+                   
 
                     }
                 }
+                $email = '';
+if (isset($_GET['email'])) {
+  $email = htmlspecialchars($_GET['email']);
+}
+
               ?>
               <div class="d-flex justify-content-center align-items-center" style="width: 100vw;">
         <section class="login-box">
@@ -89,7 +100,7 @@
             </div>
             <div class="mb-3 bg-white rounded px-2">
             <label for="exampleInputEmail1" class="form-label small-text">Email</label>
-            <input type="email" name="email" class="form-control border-0 p-0" id="exampleInputEmail1" required="required" autocomplete="off"aria-describedby="emailHelp">
+            <input type="email" name="email" class="form-control border-0 p-0" id="exampleInputEmail1" value="<?php echo $email;?>"required="required" autocomplete="off"aria-describedby="emailHelp">
             </div>
             <div class="mb-3 bg-white rounded px-2">
             <label for="exampleInputPassword1" class="form-label small-text">Mot de passe</label>

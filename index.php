@@ -14,7 +14,7 @@
   </head>
   <body>
   <div class="login-top">
-        <img src="img/logo-Proviflix.png" alt="">
+  <a href="index.html"> <img src="img/logo-Proviflix.png" alt="Responsive image LOGO" class="img-fluid" /></a>
     </div>
         <div class="login-form">
              <?php 
@@ -65,15 +65,20 @@
   background-color: #e50914;
   border-color: #d50a11;
 }
-
+<?php
+$email = '';
+if (isset($_GET['email'])) {
+  $email = htmlspecialchars($_GET['email']);
+}?>
 </style> 
+
             <div class="d-flex justify-content-center align-items-center" style="width: 100vw;">
         <section class="login-box">
             <h2 class="text-white">Se connecter</h2>
             <form action="connexion.php" method="post" class="mt-4">
             <div class="mb-3 bg-white rounded px-2" >
             <label for="exampleInputEmail1" class="form-label small-text">Email</label>
-            <input type="email" name="email" class="form-control border-0 p-0" id="exampleInputEmail1" required="required" autocomplete="off"aria-describedby="emailHelp">
+            <input type="email" name="email" class="form-control border-0 p-0" id="exampleInputEmail1"value="<?php echo $email;?>" required="required" autocomplete="off"aria-describedby="emailHelp">
             </div>
             <div class="mb-3 bg-white rounded px-2">
                 <label for="exampleInputPassword1" class="form-label small-text">Mot de passe</label>

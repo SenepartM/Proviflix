@@ -10,16 +10,19 @@
         $password = htmlspecialchars($_POST['password']);
         $password_retype = htmlspecialchars($_POST['password_retype']);
 
-        // On vérifie si l'utilisateur existe
-        $check = $BasePDO->prepare('SELECT pseudo, email, password FROM User WHERE email = ?');
-        $check->execute(array($email));
-        $data = $check->fetch();
-        $row = $check->rowCount();
+       // On vérifie si l'utilisateur existe
+       $check = $BasePDO->prepare('SELECT email, password FROM User WHERE email = ? OR pseudo = ?');
+$check->execute(array($email, $pseudo));
+$data = $check->fetch();
+$row = $check->rowCount();
+$email = strtolower($email); // on transforme toute les lettres majuscule en minuscule pour éviter que Foo@gmail.com et foo@gmail.com soient deux compte différents ..
+$pseudo = strtolower($pseudo); // pareil pour le pseudo
+// Si la requete renvoie un 0 alors l'utilisateur n'existe pas 
+if($row == 0){ 
 
-        $email = strtolower($email); // on transforme toute les lettres majuscule en minuscule pour éviter que Foo@gmail.com et foo@gmail.com soient deux compte différents ..
-        
+       
         // Si la requete renvoie un 0 alors l'utilisateur n'existe pas 
-        if($row == 0){ 
+      
             if(strlen($pseudo) <= 100){ // On verifie que la longueur du pseudo <= 100
                 if(strlen($email) <= 100){ // On verifie que la longueur du mail <= 100
                     if(filter_var($email, FILTER_VALIDATE_EMAIL)){ // Si l'email est de la bonne forme
@@ -47,7 +50,9 @@
                                 'token' => bin2hex(openssl_random_pseudo_bytes(64))
                             ));
                             // On redirige avec le message de succès
-                            header('Location:inscription.php?reg_err=success');
+                            header('Location: inscription.php?reg_err=success');
+                          
+                            
                             
                             die();
                         }else{ header('Location: inscription.php?reg_err=password'); die();}

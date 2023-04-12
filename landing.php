@@ -9,7 +9,6 @@
 ?>
 <!doctype html>
 <html lang="en">
-
 <head>
   <!-- Required meta tagss for new branch -->
   <meta charset="utf-8">
@@ -25,8 +24,10 @@
   <link href='https://unpkg.com/css.gg@2.0.0/icons/css/log-out.css' rel='stylesheet'>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glyphter/glyphter.min.css">
   <link href='https://unpkg.com/css.gg@2.0.0/icons/css/bell.css' rel='stylesheet'>
+  <link rel="stylesheet" href="package/css/swiper.min.css">
+  <link rel="stylesheet" href="css/styles.css">
   
-  <title>Hello, world!</title>
+  <title>Proviflix</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
@@ -48,11 +49,11 @@ if(isset($_POST['logout'])) {
                 </a>
                 <div class="netflix-nav" style="font-size: 1.2rem;">
                     <section>
-                    <button style="height: 50px; width: 150px; margin-right: 2px; font-weight:bold; font-size:1.1rem;">Home</button>
-<button style="height: 50px; width: 150px; margin-right: 2px; font-weight:bold; font-size:1.1rem;">TV Shows</button>
-<button style="height: 50px; width: 150px; margin-right: 2px; font-weight:bold; font-size:1.1rem;">Movies</button>
-<button style="height: 50px; width: 200px; margin-right: 2px; font-weight:bold; font-size:1.1rem;">News & Popular</button>
-<button style="height: 50px; width: 150px; font-weight:bold; font-size:1.1rem;">My List</button>
+                    <button style="height: 50px; width: 150px; margin-right: 2px; font-weight:bold; font-size:1.1rem;">Menu</button>
+<button style="height: 50px; width: 150px; margin-right: 2px; font-weight:bold; font-size:1.1rem;">Séries</button>
+<button style="height: 50px; width: 150px; margin-right: 2px; font-weight:bold; font-size:1.1rem;">Films</button>
+<button style="height: 50px; width: 200px; margin-right: 2px; font-weight:bold; font-size:1.1rem;">Nouveautés</button>
+<button style="height: 50px; width: 150px; font-weight:bold; font-size:1.1rem;">Ma liste</button>
 
 
                     </section>
@@ -60,50 +61,348 @@ if(isset($_POST['logout'])) {
                 <div class="netflix-dropdown-box dropdown" style="font-size: 1.2rem;">
                     <button class="netflix-dropdown dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"> Browse </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#">Home</a></li>
-                        <li><a class="dropdown-item" href="#">TV Shows</a></li>
-                        <li><a class="dropdown-item" href="#">Movies</a></li>
-                        <li><a class="dropdown-item" href="#">News & Popular</a></li>
-                        <li><a class="dropdown-item" href="#">VIVE FAUSTIN</a></li>
+                        <li><a class="dropdown-item" href="#">Menu</a></li>
+                        <li><a class="dropdown-item" href="#">Série</a></li>
+                        <li><a class="dropdown-item" href="#">Film</a></li>
+                        <li><a class="dropdown-item" href="#">Nouveauté</a></li>
+                        <li><a class="dropdown-item" href="#">Ma liste</a></li>
                     </ul>
                 </div>
             </div>
             <div class="right d-flex align-items-center" style="gap:0.5rem">
                 <a href="./notification.php" style="font-size: 1.5rem;"><i class="bi bi-bell-fill"></i></a>
-                <div class="profile-menu">
-                  <a class="bi bi-person-fill" id="profile-button" style="font-size: 1.5rem;"><i class="bi bi-person-fill"></i></a>
-                  <div class="profile-menu-content">
-                    <div class="profile-menu-header">
-                      <img class="profile-picture" src="path/to/default-profile-picture.png">
-                      <button class="change-picture-button">Change Picture</button>
-                    </div>
-                    <ul class="profile-menu-options">
-                      <li><a href="#">Edit Profile</a></li>
-                      <li><a href="#">Account Settings</a></li>
-                      <li><a href="./deconnexion.php">Sign Out</a></li>
-                      </ul>
-              </div>
+                <a class="bi bi-door-closedd-fill" href="./deconnexion.php" style="font-size: 1.5rem;"><i class="bi bi-door-closed-fill"></i></a>
+                <form action="./update_pp.php">
+                <button class="profile-button">
+                </form> 
+             <?php   $query = $BasePDO->prepare('SELECT img_path FROM User WHERE pseudo = ?');
+    $query->execute(array($_SESSION['user']));
+    $data = $query->fetch();
+    $img_path = $data['img_path'];?>
+                <img src="<?php echo $img_path; ?>" alt="Image de profil actuelle" class="profile-photo">
+</button>
+<style>
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .profile-button {
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .profile-photo {
+    position:relative;
+    width: 52px;
+    height: 52px;
+    object-fit: cover;   
+    border-radius:12px;
+    margin-right: 1px;
+  }
+
+
+
+
+  body{
+    background-color: #141414;
+    overflow-x: hidden;
+    width: 100vw;
+    /* position: relative; */
+}
+
+.netflix-padding-left{
+    padding-left: 57px;
+}
+
+
+.netflix-padding-right{
+    padding-right: 57px;
+}
+
+.netflix-navbar{
+    /* background-color: #0C0C0C !important; */
+    z-index: 1000;
+    transition: background 0.2s linear;
+    position: fixed;
+    width: 100vw;
+}
+
+.navbar-brand img{
+     width: 100px;
+}
+
+.netflix-row{
+    width: 100%;
+    display: flex;
+    justify-content: space-between !important;
+    align-items: center;
+}
+.netflix-row .left{
+    width: max-content
+}
+.netflix-row .right{
+    width: max-content
+}
+
+.netflix-dropdown-box{
+    display: none;
+}
+
+.netflix-dropdown{
+    background-color: transparent;
+    color: #fff;
+    border: none;
+    font-size: 9px !important;
+}
+
+.netflix-dropdown-box .dropdown-menu{
+    background-color: rgba(0, 0, 0, 0.784);
+    font-size: 9px !important;
+    color: #fff !important;
+    margin-left: -80px;
+    border-top: 3px solid #fff;
+    margin-top: 30px;
+}
+
+.netflix-dropdown-box .dropdown-menu .dropdown-item{
+     color: rgba(255, 255, 255, 0.646);
+     text-align: center;
+     width: 250px;
+     font-size: 15px;
+     padding: 10px 20px;
+}
+
+.netflix-dropdown-box .dropdown-menu .dropdown-item:hover{
+    background-color: rgba(255, 255, 255, 0.133);
+    color: #fff;
+}
+
+i{
+    font-size: 20px;
+    color: #fff;
+    padding: 5px 20px;
+}
+
+.netflix-profile{
+    width: 30px;
+    height: 30px;
+    background-color: gray;
+    border-radius: 4px;
+    margin-left: 20px;
+    cursor: pointer;
+}
+.netflix-nav{
+    display: block ;
+    align-items: center;
+}
+
+.netflix-nav button{
+    background-color: transparent;
+    color: rgba(255, 255, 255, 0.623);
+    border: none;
+    font-size: 13px;
+}
+
+.netflix-nav button:hover{
+    color: #fff;
+}
+
+
+.netflix-home-video{
+    width: 100%;
+    z-index: 10;
+    position: relative;
+}
+
+.netflix-home-video .top{
+    position: absolute;
+    top: 0%;
+    width: 100%;
+    height: 40px;
+    background: linear-gradient(to top, rgba(255, 255, 255, 0), rgb(0, 0, 0));
+}
+
+.netflix-home-video .bottom{
+    position: absolute;
+    bottom: 0%;
+    width: 100%;
+    height: 30px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #141414);
+}
+.netflix-home-video video{
+    width: 100%;
+}
+
+
+.netflix-home-video .content{
+    position: absolute;
+    top: 0%;
+    width: 100%;
+    /* background-color: #fff; */
+    z-index: 100;
+    display: flex;
+}
+
+.netflix-home-video .content .left{
+    margin-left: 80px;
+}
+.netflix-home-video .content .left img{
+   margin-top: 190px;
+   
+}
+.netflix-home-video .content .right{
+    width: 50%;
+}
+
+
+/*slider*/
+
+.slider{
+    /* position: absolute;
+    top: 600px ;
+    z-index: 500; */
+    margin-left: 60px; 
+}
+
+
+
+.slider2{
+    /* position: absolute;
+    top: 600px ;
+    z-index: 500; */
+    margin-left: 60px; 
+} 
+
+.slider3{
+    /* position: absolute;
+    top: 600px ;
+    z-index: 500; */
+    margin-left: 60px;
+}
+
+
+.card{
+    width: 250px;
+    background-color: #141414;
+    border-radius: 4px;
+    transition: 0.2s linear;
+    margin: 3px;
+    position: relative;
+}
+
+
+.card:hover{
+    transform: scaleX(1.4) scaleY(1.4);
+    z-index: 10;
+}
+
+
+.card-body{
+    display: none;
+    /* height: 0px; */
+    padding: 10px 15px;
+    position: absolute;
+    background-color: #141414;
+    top: 120px;
+    width: 100%;
+}
+
+
+.card-icon{
+    color: #fff;
+    padding: 0px !important;
+    font-size: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.card:hover > .card-body{
+    display: block;
+    /* height: max-content !important; */
+}
+
+.carousel-control-prev{
+    display: none;
+}
+
+.carousel-control-next{
+    display: none;
+}
+
+.tab-change-btn{
+    border: none;
+    width: 30px !important;
+}
+
+
+.margin-right{
+    margin-right: 100px;
+}
+
+.netflix-card-text{
+    font-size: 12px ;
+}
+
+.position-slider2{
+    top: 10px !important;
+    position: absolute !important;
+}
+
+.margin-title2{
+    margin-top: 33px;
+}
+
+.position-slider3{
+    top: 10px !important;
+    position: absolute !important;
+}
+
+
+.footer{
+    margin-top: 150px;
+    margin-bottom: 100px;
+}
+
+ul{
+    list-style: none;
+    font-size: 15px ;
+    color: rgba(255, 255, 255, 0.367);
+    font-weight: 100;
+}
+
+
+.service-btn{
+    background-color: transparent;
+     margin-left: 30px;
+      color: rgba(255, 255, 255, 0.367);
+      border: 1px solid rgba(255, 255, 255, 0.367);
+      font-size: 15px;
+      font-weight: 100;
+}
+
+.copy-right{
+    font-size: 15px;
+      font-weight: 200;
+      color: rgb(249, 14, 14);
+      margin-left: 28px;
+}
+.swiper-slide {
+  width: 391px;
+  height: 192px;
+  background-color: #141414;
+}
+
+
+</style>
             </div>
         </div>
     </div>
-</div>
 </nav>
-<script>
-    const profileMenu = document.querySelector('.profile-menu');
-    const profileMenuContent = document.querySelector('.profile-menu-content');
-    const changePictureButton = document.querySelector('.change-picture-button');
-    const profileButton = document.querySelector('#profile-button');
-    
-    // Toggle profile menu
-    profileButton.addEventListener('click', () => {
-        profileMenuContent.classList.toggle('show');
-    });
-    
-    // Change profile picture
-    changePictureButton.addEventListener('click', () => {
-        // Implement code to change profile picture here
-    });
-</script>
 
 
 
@@ -115,26 +414,26 @@ if(isset($_POST['logout'])) {
       <section class="netflix-home-video">
         <div class="top"></div>
         <div class="bottom"></div>
-        <video src="./video/video1.mp4" autoplay loop></video>
+        <video src="./video/video2.mp4" autoplay loop preload="auto"></video>
 <script>
   // Récupération de la vidéo
-  const video = document.querySelector("video[src='./video/video1.mp4']");
+  const video = document.querySelector("video[src='./video/video2.mp4']");
 
-  // Configuration de l'observer pour observer la vidéo
-  const observer = new IntersectionObserver((entries) => {
-    // Si la vidéo est visible, on joue la vidéo avec le son
-    if (entries[0].isIntersecting) {
-      video.play();
-      video.muted = false;
-    } else {
-      // Si la vidéo n'est pas visible, on met en pause la vidéo et on désactive le son
-      video.pause();
-      video.muted = true;
-    }
-  });
+ // Configuration de l'observer pour observer la vidéo
+const observer = new IntersectionObserver((entries) => {
+  // Si la vidéo est visible, on joue la vidéo avec le son
+  if (entries[0].isIntersecting) {
+    video.play();
+    video.muted = false;
+    video.volume = 1;
+  } else {
+    // Si la vidéo n'est pas visible, on met en pause la vidéo et on désactive le son
+    video.pause();
+    video.muted = true;
+  }
+}, { threshold: 0.3 }); // Utilisation d'un seuil de 0,8 (80%)
+observer.observe(video);
 
-  // On observe la vidéo
-  observer.observe(video);
 </script>
 
         <div class="content" style="padding-top:100px">
@@ -142,10 +441,8 @@ if(isset($_POST['logout'])) {
             <img src="./images/WednesdayLogo1.png" alt="" width="600px">
 
             <div class="d-flex mt-2">
-              <button class="btn btn-light m-2"> <i class="bi bi-play-fill" style="color: black; padding: 0%;"></i> Play
-                Now </button>
-              <button class="btn btn-secondary m-2"><i class="bi bi-info-circle" style=" padding: 0%;"></i> More
-                Info</button>
+              <a href="Series/Mercredi.php"><button class="btn btn-light m-2"> <i class="bi bi-play-fill" style="color: black; padding: 0%;"></i>Regarder</button></a>
+              <button class="btn btn-secondary m-2"><i class="bi bi-info-circle" style=" padding: 0%;"></i> Plus d'info</button>
             </div>
           </section>
 
@@ -155,1318 +452,90 @@ if(isset($_POST['logout'])) {
     </div>
     <!-- video -->
 
-    <!-- sliders -->
-    <div class="slider-box" >
-      <div class="container-fluid slider">
-        <section class="d-flex justify-content-between margin-right">
-          <p class="text-white"> <b>Trending</b> </p>
-          <div class="">
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
-              class="active tab-change-btn" aria-current="true" aria-label="Slide 1"></button>
-            <button class="tab-change-btn" type="button" data-bs-target="#carouselExampleIndicators"
-              data-bs-slide-to="1" aria-label="Slide 2"></button>
-            <button class="tab-change-btn" type="button" data-bs-target="#carouselExampleIndicators"
-              data-bs-slide-to="2" aria-label="Slide 3"></button>
-          </div>
-        </section>
-        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+      
 
-          <div class="carousel-inner" style="position: relative; overflow: visible;">
-            <div class="carousel-item active">
-              <section class="d-flex">
-                
-                
-                <div class="card">
-                  <img src="./images/trending/img3.webp" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
 
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
+  <!-- Swiper -->
 
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src="./images/trending/img4.jpeg" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
-
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src="./images/trending/img1.webp" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
-
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src="./images/trending/img2.jpeg" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
-
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src="./images/trending/img6.jpeg" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <a href="test.html"><i class="bi bi-play-circle-fill card-icon"></i></a>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">52% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 te  xt-white">HD</span>
-
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src="./images/trending/img6.jpeg" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <a href="test.html"><i class="bi bi-play-circle-fill card-icon"></i></a>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">07% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 te  xt-white">HD</span>
-
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-              </section>
-            </div>
-            <div class="carousel-item">
-              <section class="d-flex">
-                <div class="card">
-                  <img src="./images/trending/img1.webp" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
-
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src="./images/trending/img2.jpeg" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
-
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src="./images/trending/img3.webp" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
-
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src="./images/trending/img4.jpeg" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
-
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src="./images/trending/img1.webp" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
-
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src="./images/trending/img2.jpeg" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
-
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-              </section>
-            </div>
-            <div class="carousel-item">
-              <section class="d-flex">
-                <div class="card">
-                  <img src="./images/trending/img7.webp" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
-
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src="./images/trending/img2.jpeg" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
-
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src="./images/trending/img3.webp" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
-
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src="./images/trending/img4.jpeg" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
-
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src="./images/trending/img1.webp" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
-
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src="./images/trending/img2.jpeg" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
-
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-              </section>
-            </div>
-          </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
-            data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
-            data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
-        </div>
+  <div class="netflix-slider">
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide"><a href="./Series/PrisonBreak.php"><img src="img/1.jpg" alt="Movie Title"></div></a>
+        <div class="swiper-slide"><a href="./Series/HoD.php"><img src="img/2.jpg" alt="Movie Title"></div>
+        <div class="swiper-slide"><a href="./Series/TheWitcher.php"><img src="img/3.jpg" alt="Movie Title"></div></a>
+        <div class="swiper-slide"> <a href="./Series/RickandMorty.php"><img src="img/4.jpg" alt="Movie Title"></div></a>
+        <div class="swiper-slide"> <a href="./Series/Mercredi.php"><img src="img/wednesdayaff.jpg" alt="Movie Title"></div></a>
+        <div class="swiper-slide"><a href="./Series/Narcos.php"><img src="img/6.jpg" alt="Movie Title"></div></a>
+        <div class="swiper-slide"><img src="img/7.jpg" alt="Movie Title"></div>
+        <div class="swiper-slide"><img src="img/8.jpg" alt="Movie Title"></div>
+        <div class="swiper-slide"><img src="img/9.jpg" alt="Movie Title"></div>
+        <div class="swiper-slide"><img src="img/10.jpg" alt="Movie Title"></div>
       </div>
-      <div class="container-fluid slider2">
-        <section class="d-flex justify-content-between margin-right margin-title">
-          <p class="text-white"> <b>Hollywood</b> </p>
-          <div class="">
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
-              class="active tab-change-btn" aria-current="true" aria-label="Slide 1"></button>
-            <button class="tab-change-btn" type="button" data-bs-target="#carouselExampleIndicators"
-              data-bs-slide-to="1" aria-label="Slide 2"></button>
-            <button class="tab-change-btn" type="button" data-bs-target="#carouselExampleIndicators"
-              data-bs-slide-to="2" aria-label="Slide 3"></button>
-          </div>
-        </section>
-        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+      <!-- Add Pagination -->
+      <!-- <div class="swiper-pagination"></div> -->
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+    </div>
+  </div>
 
-          <div class="carousel-inner" style="position: relative; overflow: visible;">
-            <div class="carousel-item active">
-              <section class="d-flex">
-                <div class="card">
-                  <img src="./images/trending/img6.jpeg" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
-
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src="./images/trending/img2.jpeg" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
-
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src="./images/trending/img3.webp" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
-
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
-
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src="./images/trending/img4.jpeg" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
-
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src="./images/trending/img1.webp" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
-
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src="./images/trending/img2.jpeg" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
-
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-              </section>
-            </div>
-            <div class="carousel-item">
-              <section class="d-flex ">
-                <div class="card">
-                  <img src="./images/trending/img1.webp" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
-
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src="./images/trending/img2.jpeg" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
-
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src="./images/trending/img3.webp" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
-
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src="./images/trending/img4.jpeg" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
-
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src="./images/trending/img1.webp" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
-
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src="./images/trending/img2.jpeg" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
-
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-              </section>
-            </div>
-            <div class="carousel-item">
-              <section class="d-flex ">
-                <div class="card">
-                  <img src="./images/trending/img7.webp" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
-
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src="./images/trending/img2.jpeg" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
-
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src="./images/trending/img3.webp" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
-
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src="./images/trending/img4.jpeg" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
-
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src="./images/trending/img1.webp" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
-
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src="./images/trending/img2.jpeg" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
-
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-              </section>
-            </div>
-          </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
-            data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
-            data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
-        </div>
+  <div class="netflix-slider">
+    <h2>action</h2>
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide"><img src="img/1.jpg" alt="Movie Title"></div>
+        <div class="swiper-slide"><img src="img/2.jpg" alt="Movie Title"></div>
+        <div class="swiper-slide"><img src="img/3.jpg" alt="Movie Title"></div>
+        <div class="swiper-slide"><img src="img/4.jpg" alt="Movie Title"></div>
+        <div class="swiper-slide"><img src="img/5.jpg" alt="Movie Title"></div>
+        <div class="swiper-slide"><img src="img/6.jpg" alt="Movie Title"></div>
+        <div class="swiper-slide"><img src="img/7.jpg" alt="Movie Title"></div>
+        <div class="swiper-slide"><img src="img/8.jpg" alt="Movie Title"></div>
+        <div class="swiper-slide"><img src="img/9.jpg" alt="Movie Title"></div>
+        <div class="swiper-slide"><img src="img/10.jpg" alt="Movie Title"></div>
       </div>
-      <div class="container-fluid slider3">
-        <section class="d-flex justify-content-between margin-right margin-title2">
-          <p class="text-white"> <b>Bollywood</b> </p>
-          <div class="">
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
-              class="active tab-change-btn" aria-current="true" aria-label="Slide 1"></button>
-            <button class="tab-change-btn" type="button" data-bs-target="#carouselExampleIndicators"
-              data-bs-slide-to="1" aria-label="Slide 2"></button>
-            <button class="tab-change-btn" type="button" data-bs-target="#carouselExampleIndicators"
-              data-bs-slide-to="2" aria-label="Slide 3"></button>
-          </div>
-        </section>
-        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+      <!-- Add Pagination -->
+      <!-- <div class="swiper-pagination"></div> -->
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+    </div>
+  </div>
 
-          <div class="carousel-inner" style="position: relative; overflow: visible;">
-            <div class="carousel-item active">
-              <section class="d-flex ">
-                <div class="card">
-                  <img src="./images/trending/img6.jpeg" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
+  <!-- Swiper JS -->
+  <script src="package/js/swiper.min.js"></script>
 
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src="./images/trending/img2.jpeg" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
+  <!-- Initialize Swiper -->
+  <script>
+    var swiper = new Swiper('.swiper-container', {
+      slidesPerView: 6,
+      spaceBetween: 10,
+      slidesPerGroup: 2,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
+  </script>
 
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src="./images/trending/img3.webp" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
 
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
 
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src="./images/trending/img4.jpeg" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
 
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src="./images/trending/img1.webp" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
 
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src="./images/trending/img2.jpeg" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
 
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-              </section>
-            </div>
-            <div class="carousel-item">
-              <section class="d-flex">
-                <div class="card">
-                  <img src="./images/trending/img1.webp" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
 
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src="./images/trending/img2.jpeg" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
 
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src="./images/trending/img3.webp" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
 
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src="./images/trending/img4.jpeg" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
 
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src="./images/trending/img1.webp" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
 
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src="./images/trending/img2.jpeg" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
 
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-              </section>
-            </div>
-            <div class="carousel-item">
-              <section class="d-flex ">
-                <div class="card">
-                  <img src="./images/trending/img7.webp" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
 
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src="./images/trending/img2.jpeg" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
 
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src="./images/trending/img3.webp" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
 
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src="./images/trending/img4.jpeg" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
 
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src="./images/trending/img1.webp" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
-
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src="./images/trending/img2.jpeg" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <section class="d-flex justify-content-between">
-                      <div>
-                        <i class="bi bi-play-circle-fill card-icon"></i>
-                        <i class="bi bi-plus-circle card-icon"></i>
-                      </div>
-                      <div>
-                        <i class="bi bi-arrow-down-circle card-icon"></i>
-                      </div>
-                    </section>
-                    <section class="d-flex align-items-center justify-content-between">
-                      <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p>
-                      <span class="m-2 netflix-card-text text-white">Limited Series</span> <span
-                        class="border netflix-card-text p-1 text-white">HD</span>
-
-                    </section>
-                    <span class="netflix-card-text text-white">Provocative • Psychological • Thriller</span>
-                  </div>
-                </div>
-              </section>
-            </div>
-          </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
-            data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
-            data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
-        </div>
-      </div>
+      
     </div>
     <!-- sliders-end -->
 
@@ -1479,17 +548,17 @@ if(isset($_POST['logout'])) {
             <div class="col-md-3">
               <ul>
                 <li>Audio and Subtitle</li>
-                <li>Media Center</li>
+                <li>Damien le plus bo  Center</li>
                 <li>Privacy</li>
                 <li>Contact Us</li>
               </ul>
             </div>
             <div class="col-md-3">
               <ul>
-                <li>Audio description</li>
+                <li>en vrai mathias c un boloss </li>
                 <li>Investor Relation</li>
                 <li>Terms and Conditions</li>
-                <li>Legal Notices</li>
+                <li>Damien le bg </li>
               </ul>
             </div>
             <div class="col-md-3">
@@ -1502,7 +571,7 @@ if(isset($_POST['logout'])) {
             <div class="col-md-3">
               <ul>
                 <li>Gift card</li>
-                <li>Subscription</li>
+                <li>vas te faire foutre mathias c est tom bisous</li>
 
               </ul>
             </div>
@@ -1514,7 +583,7 @@ if(isset($_POST['logout'])) {
           <div class="row">
 
             <div class="col">
-              <p class="copy-right">@netflix copyright</p>
+              <p class="copy-right">@Proviflix copyright</p>
             </div>
           </div>
         </div>
