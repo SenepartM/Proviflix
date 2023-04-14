@@ -466,7 +466,7 @@ observer.observe(video);
         <div class="swiper-slide"> <a href="./Series/RickandMorty.php"><img src="img/4.jpg" alt="Movie Title"></div></a>
         <div class="swiper-slide"> <a href="./Series/Mercredi.php"><img src="img/wednesdayaff.jpg" alt="Movie Title"></div></a>
         <div class="swiper-slide"><a href="./Series/Narcos.php"><img src="img/6.jpg" alt="Movie Title"></div></a>
-        <div class="swiper-slide"><img src="img/7.jpg" alt="Movie Title"></div>
+        <div class="swiper-slide"><a href="./Series/Black-mirror.php"><img src="img/black-mirror.jpg" alt="Movie Title"></div></a>
         <div class="swiper-slide"><img src="img/8.jpg" alt="Movie Title"></div>
         <div class="swiper-slide"><img src="img/9.jpg" alt="Movie Title"></div>
         <div class="swiper-slide"><img src="img/10.jpg" alt="Movie Title"></div>
@@ -486,7 +486,7 @@ observer.observe(video);
         <div class="swiper-slide"><img src="img/2.jpg" alt="Movie Title"></div>
         <div class="swiper-slide"><img src="img/3.jpg" alt="Movie Title"></div>
         <div class="swiper-slide"><img src="img/4.jpg" alt="Movie Title"></div>
-        <div class="swiper-slide"><img src="img/5.jpg" alt="Movie Title"></div>
+        <div class="swiper-slide"><img src="img/wednesdayaff.jpg" alt="Movie Title"></div>
         <div class="swiper-slide"><img src="img/6.jpg" alt="Movie Title"></div>
         <div class="swiper-slide"><img src="img/7.jpg" alt="Movie Title"></div>
         <div class="swiper-slide"><img src="img/8.jpg" alt="Movie Title"></div>
