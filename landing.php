@@ -479,14 +479,13 @@ observer.observe(video);
   </div>
 
   <div class="netflix-slider">
-    <h2>action</h2>
+    <h2>Films</h2>
     <div class="swiper-container">
       <div class="swiper-wrapper">
-        <div class="swiper-slide"><img src="img/1.jpg" alt="Movie Title"></div>
-        <div class="swiper-slide"><img src="img/2.jpg" alt="Movie Title"></div>
-        <div class="swiper-slide"><img src="img/3.jpg" alt="Movie Title"></div>
-        <div class="swiper-slide"><img src="img/4.jpg" alt="Movie Title"></div>
-        <div class="swiper-slide"><img src="img/wednesdayaff.jpg" alt="Movie Title"></div>
+        <div class="swiper-slide"><a href="./Series/HP1.php"><img src="img/harry.jpg" alt="Movie Title"></div></a>
+        <div class="swiper-slide"><a href="./Series/EEAAO.php"><img src="img/EEAAO.jpg" alt="Movie Title"></div></a>
+        <div class="swiper-slide"><a href="./Series/Interstellar.php"><img src="img/Interstellar.jpg" alt="Movie Title"></div></a>
+        <div class="swiper-slide"><a href="./Series/Irishman.php"><img src="img/Irishman.jpg" alt="Movie Title"></div></a>
         <div class="swiper-slide"><img src="img/6.jpg" alt="Movie Title"></div>
         <div class="swiper-slide"><img src="img/7.jpg" alt="Movie Title"></div>
         <div class="swiper-slide"><img src="img/8.jpg" alt="Movie Title"></div>
