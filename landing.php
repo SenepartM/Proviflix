@@ -458,6 +458,7 @@ observer.observe(video);
   <!-- Swiper -->
 
   <div class="netflix-slider">
+    <h2>Série</h2>
     <div class="swiper-container">
       <div class="swiper-wrapper">
         <div class="swiper-slide"><a href="./Series/PrisonBreak.php"><img src="img/1.jpg" alt="Movie Title"></div></a>
@@ -486,7 +487,7 @@ observer.observe(video);
         <div class="swiper-slide"><a href="./Series/EEAAO.php"><img src="img/EEAAO.jpg" alt="Movie Title"></div></a>
         <div class="swiper-slide"><a href="./Series/Interstellar.php"><img src="img/Interstellar.jpg" alt="Movie Title"></div></a>
         <div class="swiper-slide"><a href="./Series/Irishman.php"><img src="img/Irishman.jpg" alt="Movie Title"></div></a>
-        <div class="swiper-slide"><img src="img/6.jpg" alt="Movie Title"></div>
+        <div class="swiper-slide"><a href="./Series/scream6.php"><img src="img/scream6.jpg" alt="Movie Title"></div></a>
         <div class="swiper-slide"><img src="img/7.jpg" alt="Movie Title"></div>
         <div class="swiper-slide"><img src="img/8.jpg" alt="Movie Title"></div>
         <div class="swiper-slide"><img src="img/9.jpg" alt="Movie Title"></div>
