@@ -1,12 +1,29 @@
-Netflix homepage built with Bootstrap.
-1) Correct creation of the page structure divided by 5 "sections" and a "footer".
-2) Appropriate tags to mark the text, images, and lists displayed in the footer menus on the page (links in these menus must be empty). You do not have to play the language selection menu.
-3) Built the two forms in the first and fifth sections (they are the same) using and customizeing the Bootstrap form templates.
-4) Form validation.
-5) Created the contents of the fifth section of the page,by adapting the "Bootsrap accordion".
+Bienvenue sur Proviflix !
 
-CSThe elements of the page are arranged following the grid of the page. All sections occupy 100% of the width of the device, although the only contents shown occupying 100% of the width of the device are those located at the top of the first section (“.container- fluid ”); the rest of the contents occupy a smaller width (.container).
-2) The page adapts to the various devices.
-3) The colors and fonts used correspond to a reasonable resemblance to the model.
-4) The use of the “floating labels” effect of placeholders. 
+Proviflix est un site de streaming de films et de séries, avec une énorme base de données de films et de séries disponibles pour le streaming en ligne. En plus de la grande sélection de films et de séries, le site dispose également d'une fonction de recherche avancée, qui vous permet de trouver facilement des titres en utilisant des mots-clés spécifiques.
 
+Comment utiliser Proviflix
+
+Pour utiliser Proviflix, il vous suffit de vous rendre sur le site web et de créer un compte. Une fois que vous avez créé un compte, vous pouvez accéder à la bibliothèque complète de films et de séries disponibles sur le site. Vous pouvez également utiliser la fonction de recherche pour trouver des titres spécifiques en saisissant des mots-clés dans la barre de recherche.
+
+Une fois que vous avez trouvé un titre que vous souhaitez regarder, vous pouvez simplement cliquer sur le bouton "Regarder maintenant" pour commencer à diffuser le contenu en ligne. Le site dispose d'un lecteur vidéo intégré qui vous permet de regarder le contenu directement sur le site.
+
+Fonctionnalités
+
+Proviflix dispose de nombreuses fonctionnalités pour rendre votre expérience de streaming encore plus agréable. Voici quelques-unes des fonctionnalités les plus populaires de Proviflix :
+
+Bibliothèque complète : la bibliothèque complète de Proviflix comprend des milliers de films et de séries dans différents genres, y compris les films d'action, les films d'horreur, les comédies, les drames et bien plus encore.
+
+Fonction de recherche avancée : la fonction de recherche avancée de Proviflix vous permet de trouver facilement des titres en utilisant des mots-clés spécifiques.
+
+API de recherche : Proviflix utilise une API de recherche pour trouver des films et des séries dans sa base de données. Cette API est constamment mise à jour pour garantir que les résultats de recherche sont précis et à jour.
+
+Lecteur vidéo intégré : le lecteur vidéo intégré de Proviflix vous permet de regarder des films et des séries directement sur le site sans avoir besoin de télécharger quoi que ce soit.
+
+Compatible avec tous les appareils : Proviflix est compatible avec tous les appareils, y compris les ordinateurs de bureau, les ordinateurs portables, les tablettes et les smartphones. Vous pouvez donc regarder vos films et vos séries préférés n'importe où et à tout moment.
+
+Pas de publicité : Proviflix est un site sans publicité. Vous pouvez donc regarder vos films et vos séries préférés sans interruption.
+
+En conclusion
+
+Proviflix est un excellent site pour les fans de films et de séries qui recherchent une bibliothèque complète de contenu, une fonction de recherche avancée, une API de recherche à jour et un lecteur vidéo intégré. Avec une interface conviviale et une expérience de streaming fluide, Proviflix est un choix solide pour le streaming de films et de séries en ligne.
