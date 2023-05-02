@@ -52,7 +52,7 @@ if(isset($_POST['logout'])) {
                     <button style="height: 50px; width: 150px; margin-right: 2px; font-weight:bold; font-size:1.1rem;">Menu</button>
 <button style="height: 50px; width: 150px; margin-right: 2px; font-weight:bold; font-size:1.1rem;">Séries</button>
 <button style="height: 50px; width: 150px; margin-right: 2px; font-weight:bold; font-size:1.1rem;">Films</button>
-<button style="height: 50px; width: 200px; margin-right: 2px; font-weight:bold; font-size:1.1rem;">Nouveautés</button>
+<a href="API.html"><button style="height: 50px; width: 200px; margin-right: 2px; font-weight:bold; font-size:1.1rem;">API</button></a>
 <button style="height: 50px; width: 150px; font-weight:bold; font-size:1.1rem;">Ma liste</button>
 
 
