@@ -514,16 +514,6 @@ observer.observe(video);
 
 
 
-
-
-
-
-
-
-
-
-
-
       
     </div>
     <!-- sliders-end -->

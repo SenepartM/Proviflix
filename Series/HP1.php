@@ -27,6 +27,7 @@
   
   <title>Proviflix</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -121,6 +122,8 @@ $img_path = '.' . dirname($img_path) . '/' . basename($img_path);
 
 <div class="content"style="padding-top:100px";>
   <h2 class="title">Harry Potter à l'école des sorciers</h2>
+ 
+
 
 <iframe id="video-player" src="https://uqload.co/embed-jkkliqdgwm51.html" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" width="640" height="360" allowfullscreen></iframe>
 
@@ -155,7 +158,60 @@ $img_path = '.' . dirname($img_path) . '/' . basename($img_path);
   });
 
 </script>
+<?php
+$host = "192.168.64.206";
+$dbname = "Proviflix";
+$user = "root";
+$password = "root";
 
+try {
+  $dsn = "mysql:host=$host;dbname=$dbname;charset=utf8mb4";
+  $pdo = new PDO($dsn, $user, $password);
+} catch (PDOException $e) {
+  echo "Erreur : " . $e->getMessage();
+}
+?>
+<?php
+if(isset($_SESSION['user'])){
+    //Vérifier si l'utilisateur est connecté
+    $id_user = $_SESSION['user'];
+} else {
+    //Si l'utilisateur n'est pas connecté, rediriger vers la page de connexion
+    header('Location: connexion.php');
+    exit;
+}
+
+if (isset($_POST['ajouter_favori'])) {
+  $id_film = $_POST['id_film'];
+
+  // Vérifier si le film est déjà dans les favoris de l'utilisateur
+  $query = "SELECT * FROM favoris WHERE id_user = $id_user AND id_film = $id_film";
+  $result = mysqli_query($dsn, $query);
+
+  if (mysqli_num_rows($result) > 0) {
+    // Le film est déjà dans les favoris de l'utilisateur
+    $message = "Ce film est déjà dans vos favoris";
+  } else {
+    // Ajouter le film aux favoris de l'utilisateur
+    $query = "INSERT INTO favoris (id_user, id_film) VALUES ($id_user, $id_film)";
+    mysqli_query($dsn, $query);
+    $message = "Film bien ajouté aux favoris";
+  }
+}
+
+// Afficher le message
+if (isset($message)) {
+  echo "<p>$message</p>";
+}
+?>
+
+<!-- Formulaire d'ajout aux favoris -->
+<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+  <input type="hidden" name="id_film" value="1"><!-- Remplacez 1 par l'identifiant du film/serie -->
+  <button type="submit" name="ajouter_favori" class="btn-favori">
+    <i class="fa fa-heart-o"></i> Ajouter aux favoris
+  </button>
+</form>
 
 
     <style>
@@ -282,3 +338,18 @@ $img_path = '.' . dirname($img_path) . '/' . basename($img_path);
 }
 
 </style>
+  <style>
+    /* Style personnalisé pour le bouton "ajouter aux favoris" */
+    .btn-favori {
+      background-color: transparent;
+      border: none;
+      color: #e74c3c;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    
+    .btn-favori:hover {
+      color: #c0392b;
+    }
+  </style>
+</head>

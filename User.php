@@ -19,6 +19,39 @@ class User {
     $this->dateInscription = $dateInscription;
     $this->token = $token;
   }
+  public static function seConnecter($email, $password) {
+    require_once 'config.php';
+
+    // Vérifier si l'adresse e-mail saisie par l'utilisateur est présente dans la base de données
+    $sql = "SELECT * FROM User WHERE email=:email";
+    $stmt = $BasePDO->prepare($sql);
+    $stmt->bindParam(":email", $email, PDO::PARAM_STR);
+    $stmt->execute();
+
+    if ($stmt->rowCount() == 1) {
+      // Si l'adresse e-mail est présente dans la base de données, récupérer les informations de l'utilisateur
+      $row = $stmt->fetch(PDO::FETCH_ASSOC);
+      $id = $row['id'];
+      $pseudo = $row['pseudo'];
+      $email = $row['email'];
+      $password_hash = $row['password'];
+      $ip = $row['ip'];
+      $dateInscription = $row['date_inscription'];
+      $token = $row['token'];
+
+      // Vérifier si le mot de passe saisi par l'utilisateur correspond à celui enregistré dans la base de données
+      if (password_verify($password, $password_hash)) {
+        // Si le mot de passe est correct, retourner un nouvel objet User avec les attributs de l'utilisateur
+        return new User($id, $pseudo, $email, $password_hash, $ip, $dateInscription, $token);
+      } else {
+        // Si le mot de passe est incorrect, retourner null
+        return null;
+      }
+    } else {
+      // Si l'adresse e-mail n'est pas présente dans la base de données, retourner null
+      return null;
+    }
+  }
 
   // Cette méthode permet de vérifier si l'adresse e-mail est présente dans la base de données
   public static function emailExists($email) {
