@@ -49,11 +49,7 @@ if(isset($_POST['logout'])) {
                 </a>
                 <div class="netflix-nav" style="font-size: 1.2rem;">
                     <section>
-                    <button style="height: 50px; width: 150px; margin-right: 2px; font-weight:bold; font-size:1.1rem;">Menu</button>
-<button style="height: 50px; width: 150px; margin-right: 2px; font-weight:bold; font-size:1.1rem;">Séries</button>
-<button style="height: 50px; width: 150px; margin-right: 2px; font-weight:bold; font-size:1.1rem;">Films</button>
 <a href="API.html"><button style="height: 50px; width: 200px; margin-right: 2px; font-weight:bold; font-size:1.1rem;">API</button></a>
-<button style="height: 50px; width: 150px; font-weight:bold; font-size:1.1rem;">Ma liste</button>
 
 
                     </section>
@@ -468,9 +464,6 @@ observer.observe(video);
         <div class="swiper-slide"> <a href="./Series/Mercredi.php"><img src="img/wednesdayaff.jpg" alt="Movie Title"></div></a>
         <div class="swiper-slide"><a href="./Series/Narcos.php"><img src="img/6.jpg" alt="Movie Title"></div></a>
         <div class="swiper-slide"><a href="./Series/Black-mirror.php"><img src="img/black-mirror.jpg" alt="Movie Title"></div></a>
-        <div class="swiper-slide"><img src="img/8.jpg" alt="Movie Title"></div>
-        <div class="swiper-slide"><img src="img/9.jpg" alt="Movie Title"></div>
-        <div class="swiper-slide"><img src="img/10.jpg" alt="Movie Title"></div>
       </div>
       <!-- Add Pagination -->
       <!-- <div class="swiper-pagination"></div> -->
@@ -488,10 +481,6 @@ observer.observe(video);
         <div class="swiper-slide"><a href="./Series/Interstellar.php"><img src="img/Interstellar.jpg" alt="Movie Title"></div></a>
         <div class="swiper-slide"><a href="./Series/Irishman.php"><img src="img/Irishman.jpg" alt="Movie Title"></div></a>
         <div class="swiper-slide"><a href="./Series/scream6.php"><img src="img/scream6.jpg" alt="Movie Title"></div></a>
-        <div class="swiper-slide"><img src="img/7.jpg" alt="Movie Title"></div>
-        <div class="swiper-slide"><img src="img/8.jpg" alt="Movie Title"></div>
-        <div class="swiper-slide"><img src="img/9.jpg" alt="Movie Title"></div>
-        <div class="swiper-slide"><img src="img/10.jpg" alt="Movie Title"></div>
       </div>
       <!-- Add Pagination -->
       <!-- <div class="swiper-pagination"></div> -->

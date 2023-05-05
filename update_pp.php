@@ -86,11 +86,6 @@ if(isset($_POST['logout'])) {
                 <div class="netflix-dropdown-box dropdown" style="font-size: 1.2rem;">
                     <button class="netflix-dropdown dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"> Browse </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#">Menu</a></li>
-                        <li><a class="dropdown-item" href="#">Série</a></li>
-                        <li><a class="dropdown-item" href="#">Film</a></li>
-                        <li><a class="dropdown-item" href="#">Nouveauté</a></li>
-                        <li><a class="dropdown-item" href="#">Ma liste</a></li>
                     </ul>
                 </div>
             </div>
