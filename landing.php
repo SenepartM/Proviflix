@@ -451,7 +451,53 @@ observer.observe(video);
       
 
 
-  <!-- Swiper -->
+    <?php
+// récupérer l'ID de l'utilisateur connecté
+$query = "SELECT id FROM User WHERE pseudo = ?";
+$stmt = $BasePDO->prepare($query);
+$stmt->execute([$_SESSION['user']]);
+$row = $stmt->fetch();
+$id_user = $row['id'];
+
+// récupérer les films favoris de l'utilisateur
+$query = "SELECT Film.affiche, Film.href FROM favoris JOIN Film ON favoris.id_film = Film.id WHERE favoris.id_utilisateur = ?";
+$stmt = $BasePDO->prepare($query);
+$stmt->execute([$id_user]);
+$films = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// vérifier s'il y a des films favoris
+$has_favorites = count($films) > 0;
+
+// afficher les films dans le slider ou un message si l'utilisateur n'a pas de favoris
+?>
+<div class="netflix-slider">
+  <h2>Favoris</h2>
+  <?php if ($has_favorites) { ?>
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+        <?php foreach ($films as $film) { ?>
+          <div class="swiper-slide"><a href="<?php echo $film['href']; ?>"><img src="<?php echo $film['affiche']; ?>" alt="<?php echo $film['titre']; ?>"></a></div>
+        <?php } ?>
+      </div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+    </div>
+  <?php } else { ?>
+    <p style="font-size: 24px; text-align: center;">Vous n'avez pas encore de favoris</p>
+  <?php } ?>
+</div>
+
+
+
+</style>
+
+<style>
+.swiper-slide img {
+    height: 200px;
+    width: 500px;
+  }
+</style>
+
 
   <div class="netflix-slider">
     <h2>Série</h2>
@@ -480,6 +526,7 @@ observer.observe(video);
         <div class="swiper-slide"><a href="./Series/EEAAO.php"><img src="img/EEAAO.jpg" alt="Movie Title"></div></a>
         <div class="swiper-slide"><a href="./Series/Interstellar.php"><img src="img/Interstellar.jpg" alt="Movie Title"></div></a>
         <div class="swiper-slide"><a href="./Series/Irishman.php"><img src="img/Irishman.jpg" alt="Movie Title"></div></a>
+        <div class="swiper-slide"><a href="./Series/Scream5.php"><img src="img/Scream5.jpg" alt="Movie Title"></div></a>
         <div class="swiper-slide"><a href="./Series/scream6.php"><img src="img/scream6.jpg" alt="Movie Title"></div></a>
       </div>
       <!-- Add Pagination -->
