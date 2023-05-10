@@ -510,6 +510,7 @@ $has_favorites = count($films) > 0;
         <div class="swiper-slide"> <a href="./Series/Mercredi.php"><img src="img/wednesdayaff.jpg" alt="Movie Title"></div></a>
         <div class="swiper-slide"><a href="./Series/Narcos.php"><img src="img/6.jpg" alt="Movie Title"></div></a>
         <div class="swiper-slide"><a href="./Series/Black-mirror.php"><img src="img/black-mirror.jpg" alt="Movie Title"></div></a>
+        <div class="swiper-slide"><a href="./Series/GoT.php"><img src="img/GoT.jpg" alt="Movie Title"></div></a>
       </div>
       <!-- Add Pagination -->
       <!-- <div class="swiper-pagination"></div> -->
@@ -528,6 +529,8 @@ $has_favorites = count($films) > 0;
         <div class="swiper-slide"><a href="./Series/Irishman.php"><img src="img/Irishman.jpg" alt="Movie Title"></div></a>
         <div class="swiper-slide"><a href="./Series/Scream5.php"><img src="img/Scream5.jpg" alt="Movie Title"></div></a>
         <div class="swiper-slide"><a href="./Series/scream6.php"><img src="img/scream6.jpg" alt="Movie Title"></div></a>
+        <div class="swiper-slide"><a href="./Series/JaM.php"><img src="img/JaM.jpg" alt="Movie Title"></div></a>
+        <div class="swiper-slide"><a href="./Series/LVDC.php"><img src="img/LVDC.jpg" alt="Movie Title"></div></a>
       </div>
       <!-- Add Pagination -->
       <!-- <div class="swiper-pagination"></div> -->

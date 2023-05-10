@@ -98,4 +98,31 @@ class User {
     // Retourner un nouvel objet User avec les attributs de l'utilisateur nouvellement créé
     return new User($id, $pseudo, $email, $password_hash, $ip, date("Y-m-d H:i:s"), $token);
   }
+  // Recupere les film favoris de l'user
+  public function getFavoris() {
+    $query = "SELECT Film.affiche, Film.href FROM favoris JOIN Film ON favoris.id_film = Film.id WHERE favoris.id_utilisateur = ?";
+    $stmt = $this->db->prepare($query);
+    $stmt->execute([$this->id]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+//Ajoute un film aux favoris d'un utilisateur
+public function addFavoris($id_film) {
+  $query = "INSERT INTO favoris (id_utilisateur, id_film) VALUES (?, ?)";
+  $stmt = $this->db->prepare($query);
+  $stmt->execute([$this->id, $id_film]);
+  echo '<div style="background-color: green; color: white; padding: 10px;">Le film a été ajouté aux favoris!</div>';
+  header("Location: Mercredi.php");
+  exit();
+}
+//Supprime un film des favoris d'un utilisateur
+public function delFavoris($id_film) {
+  $query = "DELETE FROM favoris WHERE id_utilisateur = ? AND id_film = ?";
+  $stmt = $this->db->prepare($query);
+  $stmt->execute([$this->id, $id_film]);
+  echo '<div style="background-color: green; color: white; padding: 10px;">Le film a été supprimé des favoris!</div>';
+  header("Location: MesFavoris.php");
+  exit();
+}
+
 }

@@ -122,124 +122,11 @@ $img_path = '.' . dirname($img_path) . '/' . basename($img_path);
 
 
 <div class="content"style="padding-top:100px";>
-  <h2 class="title">Rick et Morty</h2>
-  <div id="episode-navigation">
-  <span style="margin-left: 639px;">
-  <button id="prev-episode">Episode précédent</button>
-</span>
-<span style="margin-left: 347px;">
-  <button id="next-episode">Episode suivant</button>
-</span>
+  <h2 class="title">Jerry and Marge Go Large</h2>
+
+<iframe id="video-player" src="https://uqload.co/embed-cbj192xuyg6b.html" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" width="640" height="360" allowfullscreen></iframe>
 
 </div>
-<iframe id="video-player" src="https://uqload.co/embed-sluuby4zxt0k.html" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" width="640" height="360" allowfullscreen></iframe>
-
-</div>
-
-    <select id="episode-selector">
-    <optgroup label="Saison 1"style="font-size:30px;background-color:#181716;">
-        <option value="https://uqload.co/embed-sluuby4zxt0k.html">S1 Episode 1</option>
-        <option value="https://uqload.co/embed-b7ajcnoves0o.html">S1 Episode 2</option>
-        <option value="https://uqload.co/embed-wphti4v5p51l.html">S1 Episode 3</option>
-        <option value="https://uqload.co/embed-nd7k00mc5ogi.html">S1 Episode 4</option>
-        <option value="https://uqload.co/embed-k0ndyu4bxeap.html">S1 Episode 5</option>
-        <option value="https://uqload.co/embed-8wmaq85qjpsx.html">S1 Episode 6</option>
-        <option value="https://uqload.co/embed-9nyvl9rw2kvz.html">S1 Episode 7</option>
-        <option value="https://uqload.co/embed-zaujjn7t8xjh.html">S1 Episode 8</option>
-        <option value="https://uqload.co/embed-3arkswosxpqc.html">S1 Episode 9</option>
-        <option value="https://uqload.co/embed-z93vzwghrdme.html">S1 Episode 10</option>
-        <option value="https://uqload.co/embed-nhaulf7sf22x.html">S1 Episode 11</option>
-        <option value="https://uqload.co/embed-osc4aes2rnip.html">S1 Episode 12</option>
-        <option value="https://uqload.co/embed-on6l2slywmx3.html">S1 Episode 13</option>
-        <option value="https://uqload.co/embed-t0hotxz7adne.html">S1 Episode 14</option>
-        <option value="https://uqload.co/embed-l3m56gvxqghd.html">S1 Episode 15</option>
-        <option value="https://uqload.co/embed-6c52hfk88su4.html">S1 Episode 16</option>
-        <option value="https://uqload.co/embed-eo8de2h6sp84.html">S1 Episode 17</option>
-        <option value="https://uqload.co/embed-8oimogz3i507.html">S1 Episode 18</option>
-        <option value="https://uqload.co/embed-9rroyns5tnp5.html">S1 Episode 19</option>
-        <option value="https://uqload.co/embed-wbfb7zidvbh5.html">S1 Episode 20</option>
-        <option value="https://uqload.co/embed-myrmottnkbc3.html">S1 Episode 21</option>
-        <option value="https://uqload.co/embed-i9d5z4roct5k.html">S1 Episode 22</option>
-    </optgroup>
-    <optgroup label="Saison 2"style="font-size:30px;background-color:#181716;">
-        <option value="https://uqload.co/embed-tatf0uqltul8.html">S2 Episode 1</option>
-        <option value="https://uqload.co/embed-wkhtfeogabip.html">S2 Episode 2</option>
-        <option value="https://uqload.co/embed-4i4dfvauga88.html">S2 Episode 3</option>
-        <option value="https://uqload.co/embed-n6ytv164k3g2.html">S2 Episode 4</option>
-        <option value="https://uqload.co/embed-h46a347jobvn.html">S2 Episode 5</option>
-        <option value="https://uqload.co/embed-que9e50bdt72.html">S2 Episode 6</option>
-        <option value="https://uqload.co/embed-hmvqvcwr9qrr.html">S2 Episode 7</option>
-        <option value="https://uqload.co/embed-tlvq7j57opzt.html">S2 Episode 8</option>
-        <option value="https://uqload.co/embed-qlug87ufxsmv.html">S2 Episode 9</option>
-        <option value="https://uqload.co/embed-2g3xkafsfvfa.html">S2 Episode 10</option>
-        <option value="https://uqload.co/embed-j9ucolhjf4ys.html">S2 Episode 11</option>
-        <option value="https://uqload.co/embed-qv9pg1yxujrr.html">S2 Episode 12</option>
-        <option value="https://uqload.co/embed-fxoc5du18knt.html">S2 Episode 13</option>
-        <option value="https://uqload.co/embed-xy1lnkshmz3a.html">S2 Episode 14</option>
-        <option value="https://uqload.co/embed-5iddf4llodah.html">S2 Episode 15</option>
-        <option value="https://uqload.co/embed-cki8176bijzq.html">S2 Episode 16</option>
-        <option value="https://uqload.co/embed-dlaaz2mcworp.html">S2 Episode 17</option>
-        <option value="https://uqload.co/embed-9spoil74085n.html">S2 Episode 18</option>
-        <option value="https://uqload.co/embed-tmjw1q791eio.html">S2 Episode 19</option>
-        <option value="https://uqload.co/embed-4wgqc9jw95s2.html">S2 Episode 20</option>
-        <option value="https://uqload.co/embed-0npbbfh2nzjn.html">S2 Episode 21</option>
-        <option value="https://uqload.co/embed-bdgcd6v9h26u.html">S2 Episode 22</option>
-        <!-- Ajouter les autres épisodes de la saison 2 ici -->
-    </optgroup>
-    <!-- Ajouter les autres saisons ici -->
-    <optgroup label="Saison 3"style="font-size:30px;background-color:#181716;">
-        <option value="https://uqload.co/embed-7o4kf36ps2pa.html">S3 Episode 1</option>
-        <option value="https://uqload.co/embed-mz1gt4cd8fsr.html">S3 Episode 2</option>
-        <option value="https://uqload.co/embed-476hpwmxad9b.html">S3 Episode 3</option>
-        <option value="https://uqload.co/embed-ynrmzn0v9opo.html">S3 Episode 4</option>
-        <option value="https://uqload.co/embed-b96m1ezaxzif.html">S3 Episode 5</option>
-        <option value="https://uqload.co/embed-pf3jsw4j0fte.html">S3 Episode 6</option>
-        <option value="https://uqload.co/embed-npzzt9gpav82.html">S3 Episode 7</option>
-        <option value="https://uqload.co/embed-zpqw5y76ij31.html">S3 Episode 8</option>
-        <option value="https://uqload.co/embed-wnxxns6utnft.html">S3 Episode 9</option>
-        <option value="https://uqload.co/embed-4h0qhod7nmxj.html">S3 Episode 10</option>
-        <option value="https://uqload.co/embed-9i2it428dq0n.html">S3 Episode 11</option>
-        <option value="https://uqload.co/embed-ii1azpfwdszn.html">S3 Episode 12</option>
-        <option value="https://uqload.co/embed-k0wfd3p24bjn.html">S3 Episode 13</option>
-    </optgroup>
-    <optgroup label="Saison 4"style="font-size:30px;background-color:#181716;">
-        <option value="https://uqload.co/embed-qkpyvz44egw5.html">S4 Episode 1</option>
-        <option value="https://uqload.co/embed-n3ssgv3x9v44.html">S4 Episode 2</option>
-        <option value="https://uqload.co/embed-30kwyleqcq8p.html">S4 Episode 3</option>
-        <option value="https://uqload.co/embed-j745gaxlgf0n.html">S4 Episode 4</option>
-        <option value="https://uqload.co/embed-jib6tdgmxrt2.html">S4 Episode 5</option>
-        <option value="https://uqload.co/embed-ga0ustnccmrp.html">S4 Episode 6</option>
-        <option value="https://uqload.co/embed-seod4o8fbwc2.html">S4 Episode 7</option>
-        <option value="https://uqload.co/embed-0boep9qzoj23.html">S4 Episode 8</option>
-        <option value="https://uqload.co/embed-f8itaifyqalg.html">S4 Episode 9</option>
-        <option value="https://uqload.co/embed-vhia0iw540ts.html">S4 Episode 10</option>
-        <option value="https://uqload.co/embed-iqm5i30i4j5r.html">S4 Episode 11</option>
-        <option value="https://uqload.co/embed-f0x9ijvvq0go.html">S4 Episode 12</option>
-        <option value="https://uqload.co/embed-irqpzmdplo9o.html">S4 Episode 13</option>
-        <option value="https://uqload.co/embed-8ufsfgkf7acd.html">S4 Episode 14</option>
-        <option value="https://uqload.co/embed-8nknin1e5dfk.html">S4 Episode 15</option>
-        <option value="https://uqload.co/embed-8tc3ni55b93q.html">S4 Episode 16</option>
-        <option value="https://uqload.co/embed-wuo3ecn4h8v7.html">S4 Episode 17</option>
-        <option value="https://uqload.co/embed-wa2v6hy8zcqz.html">S4 Episode 18</option>
-        <option value="https://uqload.co/embed-majcfncx4c6a.html">S4 Episode 19</option>
-        <option value="https://uqload.co/embed-flocuiekjig8.html">S4 Episode 20</option>
-        <option value="https://uqload.co/embed-xy0ak8d2nnda.html">S4 Episode 21</option>
-        <option value="https://uqload.co/embed-e6awg6ce48yz.html">S4 Episode 22</option>
-        <option value="https://uqload.co/embed-kxsplchrs4c7.html">S4 Episode 23</option>
-        <option value="https://uqload.co/embed-fugafmt85fml.html">S4 Episode 24</option>
-    </optgroup>
-    <optgroup label="Saison 5"style="font-size:30px;background-color:#181716;">
-        <option value="https://uqload.co/embed-0s03kel91ggm.html">S5 Episode 1</option>
-        <option value="https://uqload.co/embed-ofzs301b2m3i.html">S5 Episode 2</option>
-        <option value="https://uqload.co/embed-7j18et9pf6d8.html">S5 Episode 3</option>
-        <option value="https://uqload.co/embed-rmokfn0vp1yf.html">S5 Episode 4</option>
-        <option value="https://uqload.co/embed-wzu9ck7fydyz.html">S5 Episode 5</option>
-        <option value="https://uqload.co/embed-x8xzorn8hfdo.html">S5 Episode 6</option>
-        <option value="https://uqload.co/embed-cdx36dm8cy5m.html">S5 Episode 7</option>
-        <option value="https://uqload.co/embed-a96gh42x0w8q.html">S5 Episode 8</option>
-        <option value="https://uqload.co/embed-y4hcnd3o2ao8.html">S5 Episode 9</option>
-    </optgroup>
-</select>
 
 	<script>
 	  var episodeSelector = document.getElementById('episode-selector');
@@ -279,7 +166,7 @@ $stmt->execute([$_SESSION['user']]);
 $row = $stmt->fetch();
 $id_user = $row['id'];
 
-$id_film = 2; // Remplacez 1 par l'identifiant du film/série
+$id_film = 14; // Remplacez 1 par l'identifiant du film/série
 
 // Vérifier si le film est déjà dans les favoris de l'utilisateur
 $query = "SELECT * FROM favoris WHERE id_utilisateur = ? AND id_film = ?";
@@ -312,7 +199,7 @@ if (isset($_POST['ajouter_favori'])) {
     $stmt = $BasePDO->prepare($query);
     $stmt->execute([$id_user, $id_film]);
     echo '<div style="background-color: green; color: white; padding: 10px;">Le film a été ajouté aux favoris!</div>';
-    header("Location: PrisonBreak.php");
+    header("Location: JaM.php");
     exit();
 
 }
@@ -324,7 +211,7 @@ if (isset($_POST['supprimer_favori'])) {
     $stmt = $BasePDO->prepare($query);
     $stmt->execute([$id_user, $id_film]);
     echo '<div style="background-color: red; color: white; padding: 10px;">Le film a été supprimé des favoris!</div>';
-    header("Location: PrisonBreak.php");
+    header("Location: JaM.php");
     exit();
 
 }
@@ -333,7 +220,6 @@ if (isset($_POST['supprimer_favori'])) {
 
 
 ?>
-
 
 
     <style>
