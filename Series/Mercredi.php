@@ -1,4 +1,5 @@
 <?php 
+ ob_start();
     session_start();
     require_once '../config.php'; // ajout connexion bdd 
    // si la session existe pas soit si l'on est pas connecté on redirige
@@ -27,6 +28,7 @@
   
   <title>Proviflix</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -174,7 +176,69 @@ $img_path = '.' . dirname($img_path) . '/' . basename($img_path);
   });
 
 </script>
+<?php
 
+// Récupérer l'ID de l'utilisateur
+$query = "SELECT id FROM User WHERE pseudo = ?";
+$stmt = $BasePDO->prepare($query);
+$stmt->execute([$_SESSION['user']]);
+$row = $stmt->fetch();
+$id_user = $row['id'];
+
+$id_film = 6; // Remplacez 1 par l'identifiant du film/série
+
+// Vérifier si le film est déjà dans les favoris de l'utilisateur
+$query = "SELECT * FROM favoris WHERE id_utilisateur = ? AND id_film = ?";
+$stmt = $BasePDO->prepare($query);
+$stmt->execute([$id_user, $id_film]);
+$row = $stmt->fetch();
+
+if ($row) {
+    // Le film est déjà dans les favoris de l'utilisateur
+    echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">';
+    echo '<input type="hidden" name="id_film" value="' . $id_film . '">';
+    echo '<button type="submit" name="supprimer_favori" class="btn-favori">';
+    echo '<i class="fa fa-heart"></i> Supprimer des favoris';
+    echo '</button>';
+    echo '</form>';
+} else {
+    // Le film n'est pas encore dans les favoris de l'utilisateur
+    echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">';
+    echo '<input type="hidden" name="id_film" value="' . $id_film . '">';
+    echo '<button type="submit" name="ajouter_favori" class="btn-favori">';
+    echo '<i class="fa fa-heart-o"></i> Ajouter aux favoris';
+    echo '</button>';
+    echo '</form>';
+}
+
+if (isset($_POST['ajouter_favori'])) {
+    // Ajouter le film aux favoris de l'utilisateur
+    $id_film = $_POST['id_film'];
+    $query = "INSERT INTO favoris (id_utilisateur, id_film) VALUES (?, ?)";
+    $stmt = $BasePDO->prepare($query);
+    $stmt->execute([$id_user, $id_film]);
+    echo '<div style="background-color: green; color: white; padding: 10px;">Le film a été ajouté aux favoris!</div>';
+    header("Location: Mercredi.php");
+    exit();
+
+}
+
+if (isset($_POST['supprimer_favori'])) {
+    // Supprimer le film des favoris de l'utilisateur
+    $id_film = $_POST['id_film'];
+    $query = "DELETE FROM favoris WHERE id_utilisateur = ? AND id_film = ?";
+    $stmt = $BasePDO->prepare($query);
+    $stmt->execute([$id_user, $id_film]);
+    echo '<div style="background-color: red; color: white; padding: 10px;">Le film a été supprimé des favoris!</div>';
+    header("Location: Mercredi.php");
+    exit();
+
+}
+
+
+
+
+?>
 
 
     <style>
@@ -268,3 +332,21 @@ $img_path = '.' . dirname($img_path) . '/' . basename($img_path);
 
 
 </style>
+<style>
+    /* Style personnalisé pour le bouton "ajouter aux favoris" */
+    .btn-favori {
+      background-color: transparent;
+      border: none;
+      color: #e74c3c;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    
+    .btn-favori:hover {
+      color: #c0392b;
+    }
+  </style>
+</head>
+<?php
+ob_end_flush();
+?>

@@ -1,4 +1,5 @@
 <?php 
+ ob_start();
     session_start();
     require_once '../config.php'; // ajout connexion bdd 
    // si la session existe pas soit si l'on est pas connecté on redirige
@@ -37,6 +38,8 @@ if(isset($_POST['logout'])) {
     header('Location: deconnexion.php');
     exit();
   }
+
+
 ?>
   <div style="position: relative;">
     <!-- header -->
@@ -159,61 +162,68 @@ $img_path = '.' . dirname($img_path) . '/' . basename($img_path);
 
 </script>
 <?php
-$host = "192.168.64.206";
-$dbname = "Proviflix";
-$user = "root";
-$password = "root";
 
-try {
-  $dsn = "mysql:host=$host;dbname=$dbname;charset=utf8mb4";
-  $pdo = new PDO($dsn, $user, $password);
-} catch (PDOException $e) {
-  echo "Erreur : " . $e->getMessage();
-}
-?>
-<?php
-if(isset($_SESSION['user'])){
-    //Vérifier si l'utilisateur est connecté
-    $id_user = $_SESSION['user'];
+// Récupérer l'ID de l'utilisateur
+$query = "SELECT id FROM User WHERE pseudo = ?";
+$stmt = $BasePDO->prepare($query);
+$stmt->execute([$_SESSION['user']]);
+$row = $stmt->fetch();
+$id_user = $row['id'];
+
+$id_film = 1; // Remplacez 1 par l'identifiant du film/série
+
+// Vérifier si le film est déjà dans les favoris de l'utilisateur
+$query = "SELECT * FROM favoris WHERE id_utilisateur = ? AND id_film = ?";
+$stmt = $BasePDO->prepare($query);
+$stmt->execute([$id_user, $id_film]);
+$row = $stmt->fetch();
+
+if ($row) {
+    // Le film est déjà dans les favoris de l'utilisateur
+    echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">';
+    echo '<input type="hidden" name="id_film" value="' . $id_film . '">';
+    echo '<button type="submit" name="supprimer_favori" class="btn-favori">';
+    echo '<i class="fa fa-heart"></i> Supprimer des favoris';
+    echo '</button>';
+    echo '</form>';
 } else {
-    //Si l'utilisateur n'est pas connecté, rediriger vers la page de connexion
-    header('Location: connexion.php');
-    exit;
+    // Le film n'est pas encore dans les favoris de l'utilisateur
+    echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">';
+    echo '<input type="hidden" name="id_film" value="' . $id_film . '">';
+    echo '<button type="submit" name="ajouter_favori" class="btn-favori">';
+    echo '<i class="fa fa-heart-o"></i> Ajouter aux favoris';
+    echo '</button>';
+    echo '</form>';
 }
 
 if (isset($_POST['ajouter_favori'])) {
-  $id_film = $_POST['id_film'];
-
-  // Vérifier si le film est déjà dans les favoris de l'utilisateur
-  $query = "SELECT * FROM favoris WHERE id_user = $id_user AND id_film = $id_film";
-  $result = mysqli_query($dsn, $query);
-
-  if (mysqli_num_rows($result) > 0) {
-    // Le film est déjà dans les favoris de l'utilisateur
-    $message = "Ce film est déjà dans vos favoris";
-  } else {
     // Ajouter le film aux favoris de l'utilisateur
-    $query = "INSERT INTO favoris (id_user, id_film) VALUES ($id_user, $id_film)";
-    mysqli_query($dsn, $query);
-    $message = "Film bien ajouté aux favoris";
-  }
+    $id_film = $_POST['id_film'];
+    $query = "INSERT INTO favoris (id_utilisateur, id_film) VALUES (?, ?)";
+    $stmt = $BasePDO->prepare($query);
+    $stmt->execute([$id_user, $id_film]);
+    echo '<div style="background-color: green; color: white; padding: 10px;">Le film a été ajouté aux favoris!</div>';
+    header("Location: HP1.php");
+    exit();
+
 }
 
-// Afficher le message
-if (isset($message)) {
-  echo "<p>$message</p>";
+if (isset($_POST['supprimer_favori'])) {
+    // Supprimer le film des favoris de l'utilisateur
+    $id_film = $_POST['id_film'];
+    $query = "DELETE FROM favoris WHERE id_utilisateur = ? AND id_film = ?";
+    $stmt = $BasePDO->prepare($query);
+    $stmt->execute([$id_user, $id_film]);
+    echo '<div style="background-color: red; color: white; padding: 10px;">Le film a été supprimé des favoris!</div>';
+    header("Location: HP1.php");
+    exit();
+
 }
+
+
+
+
 ?>
-
-<!-- Formulaire d'ajout aux favoris -->
-<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-  <input type="hidden" name="id_film" value="1"><!-- Remplacez 1 par l'identifiant du film/serie -->
-  <button type="submit" name="ajouter_favori" class="btn-favori">
-    <i class="fa fa-heart-o"></i> Ajouter aux favoris
-  </button>
-</form>
-
-
     <style>
     iframe {
   display: block;
@@ -353,3 +363,6 @@ if (isset($message)) {
     }
   </style>
 </head>
+<?php
+ob_end_flush();
+?>
