@@ -122,7 +122,7 @@ $img_path = '.' . dirname($img_path) . '/' . basename($img_path);
 
 
 <div class="content"style="padding-top:100px";>
-  <h2 class="title">Rick et Morty</h2>
+  <h2 class="title">Prison Break</h2>
   <div id="episode-navigation">
   <span style="margin-left: 639px;">
   <button id="prev-episode">Episode précédent</button>
