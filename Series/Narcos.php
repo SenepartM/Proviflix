@@ -162,7 +162,7 @@ $img_path = '.' . dirname($img_path) . '/' . basename($img_path);
     <option value="https://uqload.co/embed-oj0jtj7oqbwm.html">S2 Episode10</option>
     <!-- Ajouter les autres épisodes de la saison 2 ici -->
   </optgroup>
-  <optgroup label="Saison 1"style="font-size:30px;">
+  <optgroup label="Saison 3"style="font-size:30px;">
     <option value="https://uqload.co/embed-d5x97o9j0727.html">S3 Episode 1</option>
     <option value="https://uqload.co/embed-9y1qaptkquua.html">S3 Episode 2</option>
     <option value="https://uqload.co/embed-1v02vilcsdc0.html">S3 Episode 3</option>
