@@ -1,3 +1,8 @@
+<?php
+if(isset($_SESSION['user'])){
+    header('Location:landing.php');
+    die();
+}?>
 <!doctype html>
 <html lang="en">
   <head>

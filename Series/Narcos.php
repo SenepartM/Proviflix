@@ -152,15 +152,27 @@ $img_path = '.' . dirname($img_path) . '/' . basename($img_path);
   <optgroup label="Saison 2"style="font-size:30px;">
     <option value="https://uqload.co/embed-n9ink16rymv2.html">S2 Episode 1</option>
     <option value="https://uqload.co/embed-xkff4b9xv1yp.html">S2 Episode 2</option>
-    <option value="https://uqload.co/embed-iu0sgzgo4zt0.html">S2 Episode 3</option>
-    <option value="https://uqload.co/embed-lxgwwnlretdb.html">S2 Episode 4</option>
-    <option value="https://uqload.co/embed-95fsb9np1cql.html">S2 Episode 5</option>
+    <option value="https://uqload.co/embed-fbyy3ujwmi8a.html">S2 Episode 3</option>
+    <option value="https://uqload.co/embed-ja2tof7ya113.html">S2 Episode 4</option>
+    <option value="https://uqload.co/embed-i219uyowr4um.html">S2 Episode 5</option>
     <option value="https://uqload.co/embed-ys5lb606lamn.html">S2 Episode 6</option>
     <option value="https://uqload.co/embed-au7bbnud9osp.html">S2 Episode 7</option>
     <option value="https://uqload.co/embed-ywzbwoysfmvu.html">S2 Episode 8</option>
     <option value="https://uqload.co/embed-5rpt4a4juiqn.html">S2 Episode 9</option>
     <option value="https://uqload.co/embed-oj0jtj7oqbwm.html">S2 Episode10</option>
     <!-- Ajouter les autres épisodes de la saison 2 ici -->
+  </optgroup>
+  <optgroup label="Saison 1"style="font-size:30px;">
+    <option value="https://uqload.co/embed-d5x97o9j0727.html">S3 Episode 1</option>
+    <option value="https://uqload.co/embed-9y1qaptkquua.html">S3 Episode 2</option>
+    <option value="https://uqload.co/embed-1v02vilcsdc0.html">S3 Episode 3</option>
+    <option value="https://uqload.co/embed-6er5hilo7ty6.html">S3 Episode 4</option>
+    <option value="https://uqload.co/embed-bl5k9joqpzi5.html">S3 Episode 5</option>
+    <option value="https://uqload.co/embed-igdc9ga67dqo.html">S3 Episode 6</option>
+    <option value="https://uqload.co/embed-373oekup7f3t.html">S3 Episode 7</option>
+    <option value="https://uqload.co/embed-nuafxfpv3wn2.html">S3 Episode 8</option>
+    <option value="https://uqload.co/embed-3wiiho7k9x1n.html">S3 Episode 9</option>
+    <option value="https://uqload.co/embed-fosck33wbmcs.html">S3 Episode10</option>
   </optgroup>
   <!-- Ajouter les autres saisons ici -->
 </select>
